@@ -1,0 +1,23 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Persisted container home state, bind-mounted by the devcontainer
+.local/
+
+# Build output
+*.o
+*.out
+*.class
+build/
+out/
+target/
+assignments/**/src/main
+
+# Quarto build output
+.quarto/
+assignments/**/*.pdf
+assignments/**/writeup.tex
+assignments/**/personal.tex
+assignments/**/*_files/
