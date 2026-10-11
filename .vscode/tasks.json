@@ -1,0 +1,64 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Assignment: New",
+      "type": "shell",
+      "command": "scripts/new-assignment.sh",
+      "args": [
+        "${input:newAssignmentName}",
+        "${input:newAssignmentLang}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "detail": "Create assignments/<name> from the templates (cpp or java) and refresh the README index"
+    },
+    {
+      "label": "Writeup: Build one",
+      "type": "shell",
+      "command": "scripts/build-writeup.sh",
+      "args": [
+        "${input:buildAssignmentName}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "detail": "Render assignments/<name>/writeup.qmd to PDF"
+    },
+    {
+      "label": "Writeup: Build all",
+      "type": "shell",
+      "command": "scripts/build-writeup.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "detail": "Render every assignment writeup to PDF"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "newAssignmentName",
+      "type": "promptString",
+      "description": "New assignment folder name (for example a1-multithreading)"
+    },
+    {
+      "id": "newAssignmentLang",
+      "type": "pickString",
+      "description": "Starter code language",
+      "options": [
+        "cpp",
+        "java"
+      ],
+      "default": "cpp"
+    },
+    {
+      "id": "buildAssignmentName",
+      "type": "promptString",
+      "description": "Assignment folder to build (for example a1-multithreading)"
+    }
+  ]
+}
