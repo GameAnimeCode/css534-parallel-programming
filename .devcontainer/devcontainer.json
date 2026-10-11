@@ -1,0 +1,65 @@
+{
+  "name": "CSS-534 Parallel Programming Workspace",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "runArgs": [
+    "--userns=keep-id",
+    "--security-opt",
+    "label=disable",
+    "--device",
+    "nvidia.com/gpu=all",
+    "--env-file=${localWorkspaceFolder}/.local/.env"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "vscode",
+  "containerUser": "vscode",
+  "updateRemoteUserUID": true,
+  "mounts": [
+    "source=${localEnv:XDG_RUNTIME_DIR}/podman/podman.sock,target=/run/podman/podman.sock,type=bind",
+    "source=${localEnv:SSH_AUTH_SOCK},target=/run/ssh-agent.sock,type=bind,Z",
+    "source=${localEnv:HOME}/.zshrc,target=/home/vscode/.zshrc,type=bind,readonly,z",
+    "source=${localEnv:HOME}/.p10k.zsh,target=/home/vscode/.p10k.zsh,type=bind,readonly,z",
+    "source=${localWorkspaceFolder}/.local/home/.config,target=/home/vscode/.config,type=bind,z"
+  ],
+  "initializeCommand": "mkdir -p -m 700 .local/home/.config && touch .local/.env && chmod 600 .local/.env",
+  "remoteEnv": {
+    "CONTAINER_HOST": "unix:///run/podman/podman.sock",
+    "SSH_AUTH_SOCK": "/run/ssh-agent.sock"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "DavidAnson.vscode-markdownlint",
+        "GitHub.remotehub",
+        "github.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
+        "hediet.vscode-drawio",
+        "mathematic.vscode-pdf",
+        "ms-azuretools.vscode-containers",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.makefile-tools",
+        "quarto.quarto",
+        "redhat.java",
+        "streetsidesoftware.code-spell-checker",
+        "vscjava.vscode-java-pack",
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "[cpp]": {
+          "editor.defaultFormatter": "ms-vscode.cpptools",
+          "editor.formatOnSave": true
+        },
+        "[java]": {
+          "editor.defaultFormatter": "redhat.java",
+          "editor.formatOnSave": true
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  }
+}
