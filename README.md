@@ -7,6 +7,7 @@ Each assignment is a folder with C++ or Java code and a writeup. Writeups are Ma
 ## Assignments
 
 <!-- assignments:start -->
+- [a1-tsp-openmp](assignments/a1-tsp-openmp)
 <!-- assignments:end -->
 
 ## Layout
