@@ -13,7 +13,6 @@
 build/
 out/
 target/
-assignments/**/src/main
 
 # Quarto build output
 .quarto/

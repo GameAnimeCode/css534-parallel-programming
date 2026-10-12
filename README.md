@@ -69,9 +69,11 @@ For C++, build and run from the `src/` folder:
 
 ```bash
 make
-./main
-mpirun -np 4 ./main   # MPI programs; build with CXX=mpicxx make
+../out/main
+mpirun -np 4 ../out/main   # MPI programs; build with CXX=mpicxx make
 ```
+
+`make` writes the binary to `out/` in the assignment folder, next to `src/`. That folder is gitignored, and `make clean` removes it.
 
 For Java:
 

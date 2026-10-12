@@ -1,10 +1,12 @@
 CXX      ?= g++
 CXXFLAGS ?= -std=c++20 -O2 -Wall -Wextra -fopenmp
+OUT       = ../out
 
-main: main.cpp
+$(OUT)/main: main.cpp
+	mkdir -p $(OUT)
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 clean:
-	rm -f main
+	rm -rf $(OUT)
 
 .PHONY: clean

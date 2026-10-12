@@ -2,11 +2,11 @@
 //
 // Build and run from this folder (src/):
 //   make
-//   ./main
+//   ../out/main
 //
 // For MPI programs:
 //   CXX=mpicxx make
-//   mpirun -np 4 ./main
+//   mpirun -np 4 ../out/main
 
 #include <iostream>
 
