@@ -1,5 +1,5 @@
 CXX      ?= g++
-CXXFLAGS ?= -std=c++20 -O2 -Wall -Wextra -fopenmp
+CXXFLAGS ?= -std=gnu++17 -Wall -Wextra -fopenmp
 OUT       = ../out
 
 $(OUT)/main: main.cpp
