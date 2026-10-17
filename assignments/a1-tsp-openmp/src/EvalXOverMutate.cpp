@@ -3,6 +3,7 @@
 #include <math.h>   // sqrt, pow
 #include <omp.h>    // OpenMP
 #include <string.h> // memset
+#include <unordered_set>
 #include "Timer.h"
 #include "Trip.h"
 
@@ -13,6 +14,74 @@
 
 using namespace std;
 
+int get_city_ordinal_pos(char city)
+{
+  int c = city;
+  /*
+   * Maps 'A'-'Z' -> 0-25  |  '0'-'9' -> 26-35
+   * Avoids branch prediction penalties by using bit 6 as a multiplier switch.
+   * If c is a number (ASCII < 64), shift is 0 -> subtracts 22.
+   * If c is a letter (ASCII > 64), shift is 1 -> subtracts 65 (22 + 43).
+   */
+  return c - 22 - ((c >> 6) * 43);
+}
+
+pair<int, int> get_city_coordinates(char city, int coordinates[CITIES][2])
+{
+  int pos = get_city_ordinal_pos(city);
+  return {coordinates[pos][0], coordinates[pos][1]};
+}
+
+int get_city_position(char city, char itinerary[CITIES + 1])
+{
+  for (int i = 0; i < CITIES; i++)
+  {
+    if (itinerary[i] == city)
+    {
+      return i;
+    }
+  }
+
+  return -1; // Should never happen
+}
+
+char index_to_city(int index)
+{
+  if (index < 26)
+  {
+    // Maps 0-25 to 'A'-'Z' (ASCII 65-90)
+    return 'A' + index;
+  }
+  else
+  {
+    // Maps 26-35 to '0'-'9' (ASCII 48-57)
+    return '0' + (index - 26);
+  }
+}
+
+char get_random_city()
+{
+  return index_to_city(rand() % CITIES);
+}
+
+// Euclidean Distance
+double calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
+{
+  int dx = x2y2.first - x1y1.first;
+  int dy = x2y2.second - x1y1.second;
+  return sqrt(dx * dx + dy * dy);
+}
+
+void crossover_complement(char offspring1[CITIES + 1], char offspring2[CITIES + 1])
+{
+  for (int i = 0; i < CITIES; i++)
+  {
+    char city = offspring1[i];
+    int complement = CITIES - 1 - get_city_ordinal_pos(city);
+    offspring2[i] = index_to_city(complement);
+  }
+}
+
 /*
  * Evaluates each trip (or chromosome) and sort them out
  */
@@ -22,10 +91,90 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
 
 /*
  * Generates new TOP_X offsprings from TOP_X parents.
- * Noe that the i-th and (i+1)-th offsprings are created from the i-th and (i+1)-th parents
+ * Note that the i-th and (i+1)-th offsprings are created from the i-th and (i+1)-th parents
  */
 void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITIES][2])
 {
+  srand(time(NULL));
+
+  for (int i = 0; i < TOP_X; i += 2)
+  {
+    unordered_set<char> visited = {};
+
+    auto find_unvisited_city = [&visited]() -> char
+    {
+      char new_city;
+      bool found = false;
+
+      do
+      {
+        new_city = get_random_city();
+        if (visited.find(new_city) == visited.end())
+        {
+          found = true;
+        }
+      } while (found == false);
+
+      return new_city;
+    };
+
+    char *parent1 = parents[i].itinerary;
+    char *parent2 = parents[i + 1].itinerary;
+    char *offspring1 = offsprings[i].itinerary;
+    char *offspring2 = offsprings[i + 1].itinerary;
+
+    offspring1[0] = parent1[0];
+
+    for (int j = 1; j < CITIES; j++)
+    {
+      char current_city = offspring1[j - 1];
+      visited.insert(current_city);
+
+      int next_city1_pos = (get_city_position(current_city, parent1) + 1) % CITIES;
+      char next_city1 = parent1[next_city1_pos];
+      bool next_city1_visited = visited.find(next_city1) != visited.end();
+
+      int next_city2_pos = (get_city_position(current_city, parent2) + 1) % CITIES;
+      char next_city2 = parent2[next_city2_pos];
+      bool next_city2_visited = visited.find(next_city2) != visited.end();
+
+      if (next_city1_visited && next_city2_visited)
+      {
+        offspring1[j] = find_unvisited_city();
+      }
+      else if (!next_city1_visited && next_city2_visited)
+      {
+        offspring1[j] = next_city1;
+      }
+      else if (!next_city2_visited && next_city1_visited)
+      {
+        offspring1[j] = next_city2;
+      }
+      else
+      {
+        pair<int, int> current_city_coords = get_city_coordinates(current_city, coordinates);
+
+        pair<int, int> next_city1_coords = get_city_coordinates(next_city1, coordinates);
+        double next_city1_distance = calculate_distance(current_city_coords, next_city1_coords);
+
+        pair<int, int> next_city2_coords = get_city_coordinates(next_city2, coordinates);
+        double next_city2_distance = calculate_distance(current_city_coords, next_city2_coords);
+
+        if (next_city1_distance <= next_city2_distance)
+        {
+          offspring1[j] = next_city1;
+        }
+        else
+        {
+          offspring1[j] = next_city2;
+        }
+      }
+    }
+
+    crossover_complement(offspring1, offspring2);
+    offspring1[CITIES] = '\0';
+    offspring2[CITIES] = '\0';
+  }
 }
 
 /*
