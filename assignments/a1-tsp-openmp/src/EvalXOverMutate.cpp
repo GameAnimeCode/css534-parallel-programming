@@ -1,4 +1,5 @@
 #include <algorithm> // sort
+#include <cassert>   // assert
 #include <math.h>    // sqrtf
 #include <omp.h>     // OpenMP
 #include <stdlib.h>  // rand
@@ -93,19 +94,21 @@ float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
 // --------------------------------------------------------------------------
 
 /*
- * Returns the position of a city in an itinerary, or -1 if the city is not in it.
+ * Returns the city that follows city in itinerary, wrapping to the
+ * first city if city is the last one.
  */
-int position_in_trip(char city, const char itinerary[CITIES + 1])
+char next_city_in_trip(char city, const char itinerary[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
   {
     if (itinerary[i] == city)
     {
-      return i;
+      return itinerary[(i + 1) % CITIES];
     }
   }
 
-  return -1; // Should never happen
+  assert(false && "City is unexpectedly missing from the itinerary!");
+  return '\0';
 }
 
 /*
@@ -178,15 +181,13 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       char current_city = offspring1[j - 1];
       visited[city_to_index(current_city)] = true;
 
-      int next_city1_pos = (position_in_trip(current_city, parent1) + 1) % CITIES;
-      char next_city1 = parent1[next_city1_pos];
+      char next_city1 = next_city_in_trip(current_city, parent1);
       bool next_city1_visited = visited[city_to_index(next_city1)];
 
-      int next_city2_pos = (position_in_trip(current_city, parent2) + 1) % CITIES;
-      char next_city2 = parent2[next_city2_pos];
+      char next_city2 = next_city_in_trip(current_city, parent2);
       bool next_city2_visited = visited[city_to_index(next_city2)];
 
-      // Spec: If both cities are visited select one a random.
+      // Spec: If both cities are visited, select an unvisited city at random.
       if (next_city1_visited && next_city2_visited)
       {
         offspring1[j] = find_unvisited_city(visited);
@@ -200,7 +201,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       {
         offspring1[j] = next_city1;
       }
-      // Spec: If neither city is visited, select the closest geographically.
+      // Spec: If neither city is visited, select the closer.
       else
       {
         auto current_city_coords = get_city_coordinates(current_city, coordinates);
