@@ -2,7 +2,7 @@
 #include <cassert>   // assert
 #include <math.h>    // sqrtf
 #include <omp.h>     // OpenMP
-#include <stdlib.h>  // rand
+#include <stdlib.h>  // rand, rand_r
 #include "Trip.h"
 
 using namespace std;
@@ -49,23 +49,24 @@ char index_to_city(int index)
 }
 
 /*
- * Returns a random city name.
+ * Returns a random city name. Uses rand_r so each caller keeps its own seed,
+ * which makes it safe to call from multiple threads.
  */
-char get_random_city()
+char get_random_city(unsigned int *seed)
 {
-  return index_to_city(rand() % CITIES);
+  return index_to_city(rand_r(seed) % CITIES);
 }
 
 /*
  * Returns a random city that is not yet marked in visited.
  */
-char find_unvisited_city(const bool visited[CITIES])
+char find_unvisited_city(const bool visited[CITIES], unsigned int *seed)
 {
-  char new_city = get_random_city();
+  char new_city = get_random_city(seed);
 
   while (visited[city_to_index(new_city)])
   {
-    new_city = get_random_city();
+    new_city = get_random_city(seed);
   }
 
   return new_city;
@@ -182,6 +183,9 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
  */
 void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITIES][2])
 {
+  // Seed for rand_r, drawn once from rand() so it changes every generation.
+  unsigned int seed = rand();
+
   for (int i = 0; i < TOP_X; i += 2)
   {
     bool visited[CITIES] = {false};
@@ -207,7 +211,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       // Spec: If both cities are visited, select an unvisited city at random.
       if (parent1_next_visited && parent2_next_visited)
       {
-        offspring1[j] = find_unvisited_city(visited);
+        offspring1[j] = find_unvisited_city(visited, &seed);
       }
       // Spec: If one city is visited, select the other one.
       else if (parent1_next_visited)
