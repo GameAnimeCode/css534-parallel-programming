@@ -2,7 +2,7 @@
 #include <math.h>        // sqrtf
 #include <omp.h>         // OpenMP
 #include <stdlib.h>      // rand
-#include <unordered_set> // set
+#include <unordered_set> // unordered_set
 #include "Trip.h"
 
 using namespace std;
