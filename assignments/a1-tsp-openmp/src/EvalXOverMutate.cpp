@@ -71,22 +71,38 @@ char find_unvisited_city(const bool visited[CITIES])
 // --------------------------------------------------------------------------
 
 /*
- * Returns the (x, y) coordinates of a city.
+ * Returns the Euclidean distance between two (x, y) points.
  */
-pair<int, int> get_city_coordinates(char city, const int coordinates[CITIES][2])
+float calculate_distance(int x1, int y1, int x2, int y2)
 {
-  int index = city_to_index(city);
-  return {coordinates[index][0], coordinates[index][1]};
+  int dx = x2 - x1;
+  int dy = y2 - y1;
+  return sqrtf(dx * dx + dy * dy);
 }
 
 /*
- * Returns the Euclidean distance between two (x, y) points.
+ * Returns the distance between two cities.
  */
-float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
+float city_distance(char from, char to, const int coordinates[CITIES][2])
 {
-  int dx = x2y2.first - x1y1.first;
-  int dy = x2y2.second - x1y1.second;
-  return sqrtf(dx * dx + dy * dy);
+  int from_index = city_to_index(from);
+  int x1 = coordinates[from_index][0];
+  int y1 = coordinates[from_index][1];
+
+  int to_index = city_to_index(to);
+  int x2 = coordinates[to_index][0];
+  int y2 = coordinates[to_index][1];
+
+  return calculate_distance(x1, y1, x2, y2);
+}
+
+/*
+ * Returns the distance from the starting point (0, 0) to a city.
+ */
+float origin_distance(char city, const int coordinates[CITIES][2])
+{
+  int index = city_to_index(city);
+  return calculate_distance(0, 0, coordinates[index][0], coordinates[index][1]);
 }
 
 // --------------------------------------------------------------------------
@@ -139,17 +155,13 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
     const char *itinerary = trip[i].itinerary;
 
     double total = 0.0; // double to avoid summation error
-    total += calculate_distance({0, 0}, get_city_coordinates(itinerary[0], coordinates));
+    total += origin_distance(itinerary[0], coordinates);
 
     for (int j = 1; j < CITIES; j++)
     {
       char prev_city = itinerary[j - 1];
-      auto prev_city_coords = get_city_coordinates(prev_city, coordinates);
-
       char current_city = itinerary[j];
-      auto current_city_coords = get_city_coordinates(current_city, coordinates);
-
-      total += calculate_distance(prev_city_coords, current_city_coords);
+      total += city_distance(prev_city, current_city, coordinates);
     }
 
     trip[i].fitness = total;
@@ -204,13 +216,8 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       // Spec: If neither city is visited, select the closer.
       else
       {
-        auto current_city_coords = get_city_coordinates(current_city, coordinates);
-
-        auto next_city1_coords = get_city_coordinates(next_city1, coordinates);
-        float next_city1_distance = calculate_distance(current_city_coords, next_city1_coords);
-
-        auto next_city2_coords = get_city_coordinates(next_city2, coordinates);
-        float next_city2_distance = calculate_distance(current_city_coords, next_city2_coords);
+        float next_city1_distance = city_distance(current_city, next_city1, coordinates);
+        float next_city2_distance = city_distance(current_city, next_city2, coordinates);
 
         if (next_city1_distance <= next_city2_distance)
         {
