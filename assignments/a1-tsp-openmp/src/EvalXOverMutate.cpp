@@ -1,11 +1,8 @@
 #include <algorithm>     // sort
-#include <iostream>      // cout
-#include <math.h>        // sqrt, pow
+#include <math.h>        // sqrtf
 #include <omp.h>         // OpenMP
 #include <stdlib.h>      // rand
-#include <string.h>      // memset
 #include <unordered_set> // set
-#include "Timer.h"
 #include "Trip.h"
 
 using namespace std;
