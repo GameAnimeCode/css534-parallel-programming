@@ -7,6 +7,9 @@
 
 using namespace std;
 
+// Cities 'A'-'Z' use indexes 0-25, so the digit cities '0'-'9' start at this index.
+constexpr int LETTER_CITIES = 26;
+
 // --------------------------------------------------------------------------
 // City names and indexes
 // --------------------------------------------------------------------------
@@ -24,7 +27,7 @@ int city_to_index(char city)
   else
   {
     // Maps '0'-'9' (ASCII 48-57) to 26-35
-    return city - '0' + 26;
+    return city - '0' + LETTER_CITIES;
   }
 }
 
@@ -33,7 +36,7 @@ int city_to_index(char city)
  */
 char index_to_city(int index)
 {
-  if (index < 26)
+  if (index < LETTER_CITIES)
   {
     // Maps 0-25 to 'A'-'Z' (ASCII 65-90)
     return 'A' + index;
@@ -41,7 +44,7 @@ char index_to_city(int index)
   else
   {
     // Maps 26-35 to '0'-'9' (ASCII 48-57)
-    return '0' + (index - 26);
+    return '0' + (index - LETTER_CITIES);
   }
 }
 
