@@ -113,7 +113,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
 {
   for (int i = 0; i < TOP_X; i += 2)
   {
-    unordered_set<char> visited = {};
+    unordered_set<char> visited;
 
     auto find_unvisited_city = [&visited]() -> char
     {
@@ -127,7 +127,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
         {
           found = true;
         }
-      } while (found == false);
+      } while (!found);
 
       return new_city;
     };
