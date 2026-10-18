@@ -1,9 +1,10 @@
-#include <iostream> // cout
-#include <stdlib.h> // rand
-#include <math.h>   // sqrt, pow
-#include <omp.h>    // OpenMP
-#include <string.h> // memset
-#include <unordered_set>
+#include <algorithm>     // sort
+#include <iostream>      // cout
+#include <math.h>        // sqrt, pow
+#include <omp.h>         // OpenMP
+#include <stdlib.h>      // rand
+#include <string.h>      // memset
+#include <unordered_set> // set
 #include "Timer.h"
 #include "Trip.h"
 
@@ -45,7 +46,7 @@ int get_city_position(char city, char itinerary[CITIES + 1])
   return -1; // Should never happen
 }
 
-char index_to_city(int index)
+char ordinal_index_to_city(int index)
 {
   if (index < 26)
   {
@@ -61,15 +62,15 @@ char index_to_city(int index)
 
 char get_random_city()
 {
-  return index_to_city(rand() % CITIES);
+  return ordinal_index_to_city(rand() % CITIES);
 }
 
 // Euclidean Distance
-double calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
+float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
 {
   int dx = x2y2.first - x1y1.first;
   int dy = x2y2.second - x1y1.second;
-  return sqrt(dx * dx + dy * dy);
+  return sqrtf(dx * dx + dy * dy);
 }
 
 void crossover_complement(char offspring1[CITIES + 1], char offspring2[CITIES + 1])
@@ -78,7 +79,7 @@ void crossover_complement(char offspring1[CITIES + 1], char offspring2[CITIES + 
   {
     char city = offspring1[i];
     int complement = CITIES - 1 - get_city_ordinal_pos(city);
-    offspring2[i] = index_to_city(complement);
+    offspring2[i] = ordinal_index_to_city(complement);
   }
 }
 
@@ -87,6 +88,29 @@ void crossover_complement(char offspring1[CITIES + 1], char offspring2[CITIES + 
  */
 void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
 {
+  for (int i = 0; i < CHROMOSOMES; i++)
+  {
+    char *itinerary = trip[i].itinerary;
+
+    double total = 0.0; // double to avoid summation error
+    total += calculate_distance({0, 0}, get_city_coordinates(itinerary[0], coordinates));
+
+    for (int j = 1; j < CITIES; j++)
+    {
+      char prev_city = itinerary[j - 1];
+      auto prev_city_coords = get_city_coordinates(prev_city, coordinates);
+
+      char current_city = itinerary[j];
+      auto current_city_coords = get_city_coordinates(current_city, coordinates);
+
+      total += calculate_distance(prev_city_coords, current_city_coords);
+    }
+
+    trip[i].fitness = total;
+  }
+
+  sort(trip, trip + CHROMOSOMES, [](const Trip &lhs, const Trip &rhs)
+       { return lhs.fitness < rhs.fitness; });
 }
 
 /*
