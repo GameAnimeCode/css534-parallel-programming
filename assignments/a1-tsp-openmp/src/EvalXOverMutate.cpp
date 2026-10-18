@@ -119,8 +119,6 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
  */
 void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITIES][2])
 {
-  srand(time(NULL));
-
   for (int i = 0; i < TOP_X; i += 2)
   {
     unordered_set<char> visited = {};
@@ -176,13 +174,13 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       }
       else
       {
-        pair<int, int> current_city_coords = get_city_coordinates(current_city, coordinates);
+        auto current_city_coords = get_city_coordinates(current_city, coordinates);
 
-        pair<int, int> next_city1_coords = get_city_coordinates(next_city1, coordinates);
-        double next_city1_distance = calculate_distance(current_city_coords, next_city1_coords);
+        auto next_city1_coords = get_city_coordinates(next_city1, coordinates);
+        float next_city1_distance = calculate_distance(current_city_coords, next_city1_coords);
 
-        pair<int, int> next_city2_coords = get_city_coordinates(next_city2, coordinates);
-        double next_city2_distance = calculate_distance(current_city_coords, next_city2_coords);
+        auto next_city2_coords = get_city_coordinates(next_city2, coordinates);
+        float next_city2_distance = calculate_distance(current_city_coords, next_city2_coords);
 
         if (next_city1_distance <= next_city2_distance)
         {
@@ -206,8 +204,6 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
  */
 void mutate(Trip offsprings[TOP_X])
 {
-  srand(time(NULL));
-
   for (int i = 0; i < TOP_X; i++)
   {
     bool should_mutate = (rand() % 100) < MUTATE_RATE;
