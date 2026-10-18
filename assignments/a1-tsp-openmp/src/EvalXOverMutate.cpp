@@ -19,13 +19,13 @@ int city_to_index(char city)
   return c - 22 - ((c >> 6) * 43);
 }
 
-pair<int, int> get_city_coordinates(char city, int coordinates[CITIES][2])
+pair<int, int> get_city_coordinates(char city, const int coordinates[CITIES][2])
 {
   int index = city_to_index(city);
   return {coordinates[index][0], coordinates[index][1]};
 }
 
-int position_in_trip(char city, char itinerary[CITIES + 1])
+int position_in_trip(char city, const char itinerary[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
   {
@@ -65,7 +65,7 @@ float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
   return sqrtf(dx * dx + dy * dy);
 }
 
-void crossover_complement(char offspring1[CITIES + 1], char offspring2[CITIES + 1])
+void crossover_complement(const char offspring1[CITIES + 1], char offspring2[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
   {
@@ -82,7 +82,7 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
 {
   for (int i = 0; i < CHROMOSOMES; i++)
   {
-    char *itinerary = trip[i].itinerary;
+    const char *itinerary = trip[i].itinerary;
 
     double total = 0.0; // double to avoid summation error
     total += calculate_distance({0, 0}, get_city_coordinates(itinerary[0], coordinates));
@@ -132,8 +132,8 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       return new_city;
     };
 
-    char *parent1 = parents[i].itinerary;
-    char *parent2 = parents[i + 1].itinerary;
+    const char *parent1 = parents[i].itinerary;
+    const char *parent2 = parents[i + 1].itinerary;
     char *offspring1 = offsprings[i].itinerary;
     char *offspring2 = offsprings[i + 1].itinerary;
 
