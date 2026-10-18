@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int get_city_ordinal_pos(char city)
+int city_to_index(char city)
 {
   int c = city;
   /*
@@ -21,11 +21,11 @@ int get_city_ordinal_pos(char city)
 
 pair<int, int> get_city_coordinates(char city, int coordinates[CITIES][2])
 {
-  int pos = get_city_ordinal_pos(city);
-  return {coordinates[pos][0], coordinates[pos][1]};
+  int index = city_to_index(city);
+  return {coordinates[index][0], coordinates[index][1]};
 }
 
-int get_city_position(char city, char itinerary[CITIES + 1])
+int position_in_trip(char city, char itinerary[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
   {
@@ -38,7 +38,7 @@ int get_city_position(char city, char itinerary[CITIES + 1])
   return -1; // Should never happen
 }
 
-char ordinal_index_to_city(int index)
+char index_to_city(int index)
 {
   if (index < 26)
   {
@@ -54,7 +54,7 @@ char ordinal_index_to_city(int index)
 
 char get_random_city()
 {
-  return ordinal_index_to_city(rand() % CITIES);
+  return index_to_city(rand() % CITIES);
 }
 
 // Euclidean Distance
@@ -70,8 +70,8 @@ void crossover_complement(char offspring1[CITIES + 1], char offspring2[CITIES + 
   for (int i = 0; i < CITIES; i++)
   {
     char city = offspring1[i];
-    int complement = CITIES - 1 - get_city_ordinal_pos(city);
-    offspring2[i] = ordinal_index_to_city(complement);
+    int complement = CITIES - 1 - city_to_index(city);
+    offspring2[i] = index_to_city(complement);
   }
 }
 
@@ -144,11 +144,11 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       char current_city = offspring1[j - 1];
       visited.insert(current_city);
 
-      int next_city1_pos = (get_city_position(current_city, parent1) + 1) % CITIES;
+      int next_city1_pos = (position_in_trip(current_city, parent1) + 1) % CITIES;
       char next_city1 = parent1[next_city1_pos];
       bool next_city1_visited = visited.find(next_city1) != visited.end();
 
-      int next_city2_pos = (get_city_position(current_city, parent2) + 1) % CITIES;
+      int next_city2_pos = (position_in_trip(current_city, parent2) + 1) % CITIES;
       char next_city2 = parent2[next_city2_pos];
       bool next_city2_visited = visited.find(next_city2) != visited.end();
 
