@@ -184,65 +184,72 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
  */
 void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITIES][2])
 {
-  // Seed for rand_r, drawn once from rand() so it changes every generation.
-  unsigned int seed = rand();
+  // Base seed drawn once, on one thread, so it changes every generation.
+  unsigned int base_seed = rand();
 
-  for (int i = 0; i < TOP_X; i += 2)
+#pragma omp parallel
   {
-    bool visited[CITIES] = {false};
+    // Each thread keeps its own rand_r seed, so threads never share random state.
+    unsigned int seed = base_seed + omp_get_thread_num();
 
-    const char *parent1 = parents[i].itinerary;
-    const char *parent2 = parents[i + 1].itinerary;
-    char *offspring1 = offsprings[i].itinerary;
-    char *offspring2 = offsprings[i + 1].itinerary;
-
-    offspring1[0] = parent1[0];
-
-    for (int j = 1; j < CITIES; j++)
+#pragma omp for
+    for (int i = 0; i < TOP_X; i += 2)
     {
-      char current_city = offspring1[j - 1];
-      visited[city_to_index(current_city)] = true;
+      bool visited[CITIES] = {false};
 
-      char parent1_next = next_city_in_trip(current_city, parent1);
-      bool parent1_next_visited = visited[city_to_index(parent1_next)];
+      const char *parent1 = parents[i].itinerary;
+      const char *parent2 = parents[i + 1].itinerary;
+      char *offspring1 = offsprings[i].itinerary;
+      char *offspring2 = offsprings[i + 1].itinerary;
 
-      char parent2_next = next_city_in_trip(current_city, parent2);
-      bool parent2_next_visited = visited[city_to_index(parent2_next)];
+      offspring1[0] = parent1[0];
 
-      // Spec: If both cities are visited, select an unvisited city at random.
-      if (parent1_next_visited && parent2_next_visited)
+      for (int j = 1; j < CITIES; j++)
       {
-        offspring1[j] = find_unvisited_city(visited, &seed);
-      }
-      // Spec: If one city is visited, select the other one.
-      else if (parent1_next_visited)
-      {
-        offspring1[j] = parent2_next;
-      }
-      else if (parent2_next_visited)
-      {
-        offspring1[j] = parent1_next;
-      }
-      // Spec: If neither city is visited, select the closer one.
-      else
-      {
-        float parent1_next_distance = city_distance(current_city, parent1_next, coordinates);
-        float parent2_next_distance = city_distance(current_city, parent2_next, coordinates);
+        char current_city = offspring1[j - 1];
+        visited[city_to_index(current_city)] = true;
 
-        if (parent1_next_distance <= parent2_next_distance)
+        char parent1_next = next_city_in_trip(current_city, parent1);
+        bool parent1_next_visited = visited[city_to_index(parent1_next)];
+
+        char parent2_next = next_city_in_trip(current_city, parent2);
+        bool parent2_next_visited = visited[city_to_index(parent2_next)];
+
+        // Spec: If both cities are visited, select an unvisited city at random.
+        if (parent1_next_visited && parent2_next_visited)
         {
-          offspring1[j] = parent1_next;
+          offspring1[j] = find_unvisited_city(visited, &seed);
         }
-        else
+        // Spec: If one city is visited, select the other one.
+        else if (parent1_next_visited)
         {
           offspring1[j] = parent2_next;
         }
-      }
-    }
+        else if (parent2_next_visited)
+        {
+          offspring1[j] = parent1_next;
+        }
+        // Spec: If neither city is visited, select the closer one.
+        else
+        {
+          float parent1_next_distance = city_distance(current_city, parent1_next, coordinates);
+          float parent2_next_distance = city_distance(current_city, parent2_next, coordinates);
 
-    crossover_complement(offspring1, offspring2);
-    offspring1[CITIES] = '\0';
-    offspring2[CITIES] = '\0';
+          if (parent1_next_distance <= parent2_next_distance)
+          {
+            offspring1[j] = parent1_next;
+          }
+          else
+          {
+            offspring1[j] = parent2_next;
+          }
+        }
+      }
+
+      crossover_complement(offspring1, offspring2);
+      offspring1[CITIES] = '\0';
+      offspring2[CITIES] = '\0';
+    }
   }
 }
 
