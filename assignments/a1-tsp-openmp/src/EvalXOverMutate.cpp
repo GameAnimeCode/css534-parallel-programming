@@ -1,8 +1,7 @@
-#include <algorithm>     // sort
-#include <math.h>        // sqrtf
-#include <omp.h>         // OpenMP
-#include <stdlib.h>      // rand
-#include <unordered_set> // unordered_set
+#include <algorithm> // sort
+#include <math.h>    // sqrtf
+#include <omp.h>     // OpenMP
+#include <stdlib.h>  // rand
 #include "Trip.h"
 
 using namespace std;
@@ -150,7 +149,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
 {
   for (int i = 0; i < TOP_X; i += 2)
   {
-    unordered_set<char> visited;
+    bool visited[CITIES] = {false};
 
     auto find_unvisited_city = [&visited]() -> char
     {
@@ -160,7 +159,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       do
       {
         new_city = get_random_city();
-        if (visited.find(new_city) == visited.end())
+        if (!visited[city_to_index(new_city)])
         {
           found = true;
         }
@@ -179,15 +178,15 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
     for (int j = 1; j < CITIES; j++)
     {
       char current_city = offspring1[j - 1];
-      visited.insert(current_city);
+      visited[city_to_index(current_city)] = true;
 
       int next_city1_pos = (position_in_trip(current_city, parent1) + 1) % CITIES;
       char next_city1 = parent1[next_city1_pos];
-      bool next_city1_visited = visited.find(next_city1) != visited.end();
+      bool next_city1_visited = visited[city_to_index(next_city1)];
 
       int next_city2_pos = (position_in_trip(current_city, parent2) + 1) % CITIES;
       char next_city2 = parent2[next_city2_pos];
-      bool next_city2_visited = visited.find(next_city2) != visited.end();
+      bool next_city2_visited = visited[city_to_index(next_city2)];
 
       if (next_city1_visited && next_city2_visited)
       {
