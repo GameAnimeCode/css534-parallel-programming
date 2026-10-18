@@ -243,22 +243,18 @@ void mutate(Trip offsprings[TOP_X])
 {
   for (int i = 0; i < TOP_X; i++)
   {
-    bool should_mutate = (rand() % 100) < MUTATE_RATE;
-    if (!should_mutate)
+    if ((rand() % 100) < MUTATE_RATE)
     {
-      continue;
+      char *itinerary = offsprings[i].itinerary;
+
+      int gene1 = rand() % CITIES;
+      int gene2 = rand() % CITIES;
+      while (gene2 == gene1)
+      {
+        gene2 = rand() % CITIES;
+      }
+
+      swap(itinerary[gene1], itinerary[gene2]);
     }
-
-    int gene1 = rand() % CITIES;
-
-    int gene2;
-    do
-    {
-      gene2 = rand() % CITIES;
-    } while (gene2 == gene1);
-
-    char temp = offsprings[i].itinerary[gene1];
-    offsprings[i].itinerary[gene1] = offsprings[i].itinerary[gene2];
-    offsprings[i].itinerary[gene2] = temp;
   }
 }
