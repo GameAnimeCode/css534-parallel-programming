@@ -192,7 +192,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
     // Each thread keeps its own rand_r seed, so threads never share random state.
     unsigned int seed = base_seed + omp_get_thread_num();
 
-#pragma omp for
+#pragma omp for schedule(dynamic, 64)
     for (int i = 0; i < TOP_X; i += 2)
     {
       bool visited[CITIES] = {false};
