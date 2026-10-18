@@ -50,6 +50,21 @@ char get_random_city()
   return index_to_city(rand() % CITIES);
 }
 
+/*
+ * Returns a random city that is not yet marked in visited.
+ */
+char find_unvisited_city(const bool visited[CITIES])
+{
+  char new_city = get_random_city();
+
+  while (visited[city_to_index(new_city)])
+  {
+    new_city = get_random_city();
+  }
+
+  return new_city;
+}
+
 // --------------------------------------------------------------------------
 // Coordinates and distance
 // --------------------------------------------------------------------------
@@ -151,23 +166,6 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
   {
     bool visited[CITIES] = {false};
 
-    auto find_unvisited_city = [&visited]() -> char
-    {
-      char new_city;
-      bool found = false;
-
-      do
-      {
-        new_city = get_random_city();
-        if (!visited[city_to_index(new_city)])
-        {
-          found = true;
-        }
-      } while (!found);
-
-      return new_city;
-    };
-
     const char *parent1 = parents[i].itinerary;
     const char *parent2 = parents[i + 1].itinerary;
     char *offspring1 = offsprings[i].itinerary;
@@ -190,7 +188,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
 
       if (next_city1_visited && next_city2_visited)
       {
-        offspring1[j] = find_unvisited_city();
+        offspring1[j] = find_unvisited_city(visited);
       }
       else if (!next_city1_visited && next_city2_visited)
       {
