@@ -213,7 +213,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       {
         offspring1[j] = parent1_next;
       }
-      // Spec: If neither city is visited, select the closer.
+      // Spec: If neither city is visited, select the closer one.
       else
       {
         float parent1_next_distance = city_distance(current_city, parent1_next, coordinates);
