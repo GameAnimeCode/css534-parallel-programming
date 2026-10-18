@@ -7,6 +7,10 @@
 
 using namespace std;
 
+// --------------------------------------------------------------------------
+// City names and indexes
+// --------------------------------------------------------------------------
+
 /*
  * Converts a city name to its index in coordinates: 'A'-'Z' -> 0-25, '0'-'9' -> 26-35.
  */
@@ -20,31 +24,6 @@ int city_to_index(char city)
    * Digits subtract only 22 ('0' - 26), so '0' -> 26.
    */
   return c - 22 - ((c >> 6) * 43);
-}
-
-/*
- * Returns the (x, y) coordinates of a city.
- */
-pair<int, int> get_city_coordinates(char city, const int coordinates[CITIES][2])
-{
-  int index = city_to_index(city);
-  return {coordinates[index][0], coordinates[index][1]};
-}
-
-/*
- * Returns the position of a city in an itinerary, or -1 if the city is not in it.
- */
-int position_in_trip(char city, const char itinerary[CITIES + 1])
-{
-  for (int i = 0; i < CITIES; i++)
-  {
-    if (itinerary[i] == city)
-    {
-      return i;
-    }
-  }
-
-  return -1; // Should never happen
 }
 
 /*
@@ -72,6 +51,19 @@ char get_random_city()
   return index_to_city(rand() % CITIES);
 }
 
+// --------------------------------------------------------------------------
+// Coordinates and distance
+// --------------------------------------------------------------------------
+
+/*
+ * Returns the (x, y) coordinates of a city.
+ */
+pair<int, int> get_city_coordinates(char city, const int coordinates[CITIES][2])
+{
+  int index = city_to_index(city);
+  return {coordinates[index][0], coordinates[index][1]};
+}
+
 /*
  * Returns the Euclidean distance between two (x, y) points.
  */
@@ -80,6 +72,26 @@ float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
   int dx = x2y2.first - x1y1.first;
   int dy = x2y2.second - x1y1.second;
   return sqrtf(dx * dx + dy * dy);
+}
+
+// --------------------------------------------------------------------------
+// Itinerary helpers for crossover
+// --------------------------------------------------------------------------
+
+/*
+ * Returns the position of a city in an itinerary, or -1 if the city is not in it.
+ */
+int position_in_trip(char city, const char itinerary[CITIES + 1])
+{
+  for (int i = 0; i < CITIES; i++)
+  {
+    if (itinerary[i] == city)
+    {
+      return i;
+    }
+  }
+
+  return -1; // Should never happen
 }
 
 /*
@@ -95,6 +107,10 @@ void crossover_complement(const char offspring1[CITIES + 1], char offspring2[CIT
     offspring2[i] = index_to_city(complement);
   }
 }
+
+// --------------------------------------------------------------------------
+// Genetic algorithm steps called from Tsp.cpp
+// --------------------------------------------------------------------------
 
 /*
  * Evaluates each trip (or chromosome) and sort them out
