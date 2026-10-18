@@ -193,39 +193,39 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       char current_city = offspring1[j - 1];
       visited[city_to_index(current_city)] = true;
 
-      char next_city1 = next_city_in_trip(current_city, parent1);
-      bool next_city1_visited = visited[city_to_index(next_city1)];
+      char parent1_next = next_city_in_trip(current_city, parent1);
+      bool parent1_next_visited = visited[city_to_index(parent1_next)];
 
-      char next_city2 = next_city_in_trip(current_city, parent2);
-      bool next_city2_visited = visited[city_to_index(next_city2)];
+      char parent2_next = next_city_in_trip(current_city, parent2);
+      bool parent2_next_visited = visited[city_to_index(parent2_next)];
 
       // Spec: If both cities are visited, select an unvisited city at random.
-      if (next_city1_visited && next_city2_visited)
+      if (parent1_next_visited && parent2_next_visited)
       {
         offspring1[j] = find_unvisited_city(visited);
       }
       // Spec: If one city is visited, select the other one.
-      else if (next_city1_visited)
+      else if (parent1_next_visited)
       {
-        offspring1[j] = next_city2;
+        offspring1[j] = parent2_next;
       }
-      else if (next_city2_visited)
+      else if (parent2_next_visited)
       {
-        offspring1[j] = next_city1;
+        offspring1[j] = parent1_next;
       }
       // Spec: If neither city is visited, select the closer.
       else
       {
-        float next_city1_distance = city_distance(current_city, next_city1, coordinates);
-        float next_city2_distance = city_distance(current_city, next_city2, coordinates);
+        float parent1_next_distance = city_distance(current_city, parent1_next, coordinates);
+        float parent2_next_distance = city_distance(current_city, parent2_next, coordinates);
 
-        if (next_city1_distance <= next_city2_distance)
+        if (parent1_next_distance <= parent2_next_distance)
         {
-          offspring1[j] = next_city1;
+          offspring1[j] = parent1_next;
         }
         else
         {
-          offspring1[j] = next_city2;
+          offspring1[j] = parent2_next;
         }
       }
     }
