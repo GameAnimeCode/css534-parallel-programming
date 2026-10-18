@@ -186,18 +186,21 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       char next_city2 = parent2[next_city2_pos];
       bool next_city2_visited = visited[city_to_index(next_city2)];
 
+      // Spec: If both cities are visited select one a random.
       if (next_city1_visited && next_city2_visited)
       {
         offspring1[j] = find_unvisited_city(visited);
       }
-      else if (!next_city1_visited && next_city2_visited)
-      {
-        offspring1[j] = next_city1;
-      }
-      else if (!next_city2_visited && next_city1_visited)
+      // Spec: If one city is visited, select the other one.
+      else if (next_city1_visited)
       {
         offspring1[j] = next_city2;
       }
+      else if (next_city2_visited)
+      {
+        offspring1[j] = next_city1;
+      }
+      // Spec: If neither city is visited, select the closest geographically.
       else
       {
         auto current_city_coords = get_city_coordinates(current_city, coordinates);
