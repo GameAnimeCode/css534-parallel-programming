@@ -16,14 +16,16 @@ using namespace std;
  */
 int city_to_index(char city)
 {
-  int c = city;
-
-  /*
-   * c >> 6 is 1 for letters (ASCII 65-90) and 0 for digits (ASCII 48-57).
-   * Letters subtract 22 + 43 = 65 ('A'), so 'A' -> 0.
-   * Digits subtract only 22 ('0' - 26), so '0' -> 26.
-   */
-  return c - 22 - ((c >> 6) * 43);
+  if (city >= 'A')
+  {
+    // Maps 'A'-'Z' (ASCII 65-90) to 0-25
+    return city - 'A';
+  }
+  else
+  {
+    // Maps '0'-'9' (ASCII 48-57) to 26-35
+    return city - '0' + 26;
+  }
 }
 
 /*
