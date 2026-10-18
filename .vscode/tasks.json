@@ -37,6 +37,46 @@
       },
       "problemMatcher": [],
       "detail": "Render every assignment writeup to PDF"
+    },
+    {
+      "label": "C++: Build",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "-C",
+        "${fileDirname}"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": [
+          "autoDetect",
+          "${fileDirname}"
+        ]
+      },
+      "detail": "Run make in the src folder of the open file"
+    },
+    {
+      "label": "C++: Run",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "-C",
+        "${fileDirname}",
+        "run",
+        "ARGS=${input:runArgs}"
+      ],
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": [
+          "autoDetect",
+          "${fileDirname}"
+        ]
+      },
+      "detail": "Build if needed, then run the program from its src folder"
     }
   ],
   "inputs": [
@@ -59,6 +99,12 @@
       "id": "buildAssignmentName",
       "type": "promptString",
       "description": "Assignment folder to build (for example a1-multithreading)"
+    },
+    {
+      "id": "runArgs",
+      "type": "promptString",
+      "description": "Program arguments (for example the thread count)",
+      "default": "1"
     }
   ]
 }

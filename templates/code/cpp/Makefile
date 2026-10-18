@@ -6,7 +6,10 @@ $(OUT)/main: main.cpp
 	mkdir -p $(OUT)
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
+run: $(OUT)/main
+	$(OUT)/main $(ARGS)
+
 clean:
 	rm -rf $(OUT)
 
-.PHONY: clean
+.PHONY: run clean

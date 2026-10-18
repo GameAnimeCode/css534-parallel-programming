@@ -9,7 +9,10 @@ $(OUT)/Tsp: $(SRCS) $(HDRS)
 	mkdir -p $(OUT)
 	$(CXX) $(CXXFLAGS) -o $@ $(SRCS)
 
+run: $(OUT)/Tsp
+	$(OUT)/Tsp $(ARGS)
+
 clean:
 	rm -rf $(OUT)
 
-.PHONY: clean
+.PHONY: run clean
