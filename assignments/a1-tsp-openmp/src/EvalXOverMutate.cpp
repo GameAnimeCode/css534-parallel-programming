@@ -247,6 +247,7 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
       }
 
       crossover_complement(offspring1, offspring2);
+      // Fill in ending for Tsp.cpp strncpy
       offspring1[CITIES] = '\0';
       offspring2[CITIES] = '\0';
     }
