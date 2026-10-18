@@ -13,11 +13,11 @@ using namespace std;
 int city_to_index(char city)
 {
   int c = city;
+
   /*
-   * Maps 'A'-'Z' -> 0-25  |  '0'-'9' -> 26-35
-   * Avoids branch prediction penalties by using bit 6 as a multiplier switch.
-   * If c is a number (ASCII < 64), shift is 0 -> subtracts 22.
-   * If c is a letter (ASCII > 64), shift is 1 -> subtracts 65 (22 + 43).
+   * c >> 6 is 1 for letters (ASCII 65-90) and 0 for digits (ASCII 48-57).
+   * Letters subtract 22 + 43 = 65 ('A'), so 'A' -> 0.
+   * Digits subtract only 22 ('0' - 26), so '0' -> 26.
    */
   return c - 22 - ((c >> 6) * 43);
 }
