@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/*
+ * Converts a city name to its index in coordinates: 'A'-'Z' -> 0-25, '0'-'9' -> 26-35.
+ */
 int city_to_index(char city)
 {
   int c = city;
@@ -19,12 +22,18 @@ int city_to_index(char city)
   return c - 22 - ((c >> 6) * 43);
 }
 
+/*
+ * Returns the (x, y) coordinates of a city.
+ */
 pair<int, int> get_city_coordinates(char city, const int coordinates[CITIES][2])
 {
   int index = city_to_index(city);
   return {coordinates[index][0], coordinates[index][1]};
 }
 
+/*
+ * Returns the position of a city in an itinerary, or -1 if the city is not in it.
+ */
 int position_in_trip(char city, const char itinerary[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
@@ -38,6 +47,9 @@ int position_in_trip(char city, const char itinerary[CITIES + 1])
   return -1; // Should never happen
 }
 
+/*
+ * Converts an index from 0 to 35 back to its city name. Inverse of city_to_index().
+ */
 char index_to_city(int index)
 {
   if (index < 26)
@@ -52,12 +64,17 @@ char index_to_city(int index)
   }
 }
 
+/*
+ * Returns a random city name.
+ */
 char get_random_city()
 {
   return index_to_city(rand() % CITIES);
 }
 
-// Euclidean Distance
+/*
+ * Returns the Euclidean distance between two (x, y) points.
+ */
 float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
 {
   int dx = x2y2.first - x1y1.first;
@@ -65,6 +82,10 @@ float calculate_distance(pair<int, int> x1y1, pair<int, int> x2y2)
   return sqrtf(dx * dx + dy * dy);
 }
 
+/*
+ * Fills offspring2 with the complement of offspring1. The city at index k is
+ * replaced by the city at index CITIES - 1 - k, so A <-> 9, B <-> 8, and so on.
+ */
 void crossover_complement(const char offspring1[CITIES + 1], char offspring2[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
