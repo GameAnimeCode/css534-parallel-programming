@@ -8,11 +8,6 @@
 #include "Timer.h"
 #include "Trip.h"
 
-#define CHROMOSOMES 50000 // 50000 different trips
-#define CITIES 36         // 36 cities = ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
-#define TOP_X 25000       // top optimal 25%
-#define MUTATE_RATE 50    // optimal 50%
-
 using namespace std;
 
 int get_city_ordinal_pos(char city)
