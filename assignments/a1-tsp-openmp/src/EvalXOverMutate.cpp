@@ -156,6 +156,7 @@ void crossover_complement(const char offspring1[CITIES + 1], char offspring2[CIT
  */
 void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
 {
+#pragma omp parallel for
   for (int i = 0; i < CHROMOSOMES; i++)
   {
     const char *itinerary = trip[i].itinerary;
