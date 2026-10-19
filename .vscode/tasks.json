@@ -57,7 +57,7 @@
           "${fileDirname}"
         ]
       },
-      "detail": "Run make in the src folder of the open file"
+      "detail": "Run make in the folder of the open file (src or lab)"
     },
     {
       "label": "C++: Run",
@@ -67,6 +67,7 @@
         "-C",
         "${fileDirname}",
         "run",
+        "P=${fileBasenameNoExtension}",
         "ARGS=${input:runArgs}"
       ],
       "problemMatcher": {
@@ -76,7 +77,7 @@
           "${fileDirname}"
         ]
       },
-      "detail": "Build if needed, then run the program from its src folder"
+      "detail": "Build if needed, then run the program. In lab, runs the open file's program with ARGS as the thread count"
     }
   ],
   "inputs": [
@@ -103,7 +104,7 @@
     {
       "id": "runArgs",
       "type": "promptString",
-      "description": "Program arguments (for example the thread count)",
+      "description": "Program arguments (in lab, the OpenMP thread count)",
       "default": "1"
     }
   ]
