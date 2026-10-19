@@ -25,18 +25,19 @@ ENV PATH="/usr/lib64/openmpi/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib"
 ENV JAVA_HOME=/usr/lib/jvm/java-25-openjdk
 
-# Install Quarto and TinyTeX to render the markdown writeups to PDF.
-# librsvg2-tools provides rsvg-convert, which Quarto needs to embed SVG figures in PDF output.
+# Install and setup Quarto to render the markdown writeups to PDF.
 ARG QUARTO_VERSION=1.10.19
 USER root
-RUN dnf install -y librsvg2-tools && \
+RUN dnf install -y librsvg2-tools perl-File-Find && \
   curl -fsSL -o /tmp/quarto.rpm \
   "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-$(uname -m).rpm" && \
   dnf install -y /tmp/quarto.rpm && \
   rm /tmp/quarto.rpm && \
   dnf clean all
 USER vscode
-RUN quarto install tinytex --no-prompt
+RUN quarto install tinytex --no-prompt && \
+  ~/.TinyTeX/bin/*/tlmgr update --self && \
+  ~/.TinyTeX/bin/*/tlmgr install pgfplots lm luatexbase
 
 # Install Oh My Zsh, Powerlevel10k, and ZSH plugins manually
 RUN git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /home/vscode/.oh-my-zsh && \
