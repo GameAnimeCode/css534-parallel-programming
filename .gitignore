@@ -19,4 +19,5 @@ target/
 assignments/**/*.pdf
 assignments/**/writeup.tex
 assignments/**/personal.tex
+assignments/**/texput.log
 assignments/**/*_files/
