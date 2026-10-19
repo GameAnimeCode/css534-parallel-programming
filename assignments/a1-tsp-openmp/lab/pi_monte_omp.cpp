@@ -31,11 +31,11 @@ int main(int argc, char *argv[])
 
   srand(SEED); // initialize random numbers
 
-#pragma omp parallel
   for (int quad = 0; quad < 4; quad++)
   {
     // for each quadrant
     count = 0;
+#pragma omp parallel for private(x, y, radius) reduction(+ : count)
     for (int i = 0; i < niter; i++)
     {
       x = (double)rand() / RAND_MAX;

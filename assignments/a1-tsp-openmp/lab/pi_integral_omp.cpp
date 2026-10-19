@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
   double h = 1.0 / (double)niter;
   double sum = 0.0;
-#pragma omp parallel
+#pragma omp parallel for reduction(+ : sum) private(x)
   for (int i = 1; i <= niter; i++)
   {
     // compute integral from 0.0 to 1.0
