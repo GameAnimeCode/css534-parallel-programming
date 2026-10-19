@@ -1,0 +1,12 @@
+# C and C++ style for the course code. VS Code's C/C++ extension formats with
+# this file on save. The 80-column limit keeps source listings inside the code
+# box in the PDF writeups (9pt in the answer quote fits about 88 characters).
+BasedOnStyle: LLVM
+IndentWidth: 2
+BreakBeforeBraces: Allman
+ColumnLimit: 80
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+SortIncludes: Never
