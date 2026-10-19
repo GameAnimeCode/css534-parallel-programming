@@ -1,0 +1,30 @@
+# threads = 2
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1056	 itinerary = I61YHO9F48KGATL7UJR3BQ2ZWSCVP5MD0ENX
+generation: 2 shortest distance = 970.725	 itinerary = V2U0EYI149X6TAKFN83DBQPC5SWMZH7JOGRL
+generation: 3 shortest distance = 833.368	 itinerary = HEUZY16IJ9K02MBQPSCW5VONTXF8A73RDLG4
+generation: 4 shortest distance = 773.696	 itinerary = HEUZY16IONTXF9K02SCW5DBQPMR37LG48AJV
+generation: 5 shortest distance = 749.841	 itinerary = V1I9KNX4O6FGT873RALUEWC5SMBQDJPHZY02
+generation: 6 shortest distance = 749.172	 itinerary = VO8NTXKGAL720J649FI1ZHYWCSPEU3RQBDM5
+generation: 7 shortest distance = 698.922	 itinerary = E02SCW5DBQPMR37LAJUZY1V84NTX9KFG6IOH
+generation: 9 shortest distance = 667.289	 itinerary = V1YZE02HW5CMPSQBDR3ALOIU684NFK9GXT7J
+generation: 10 shortest distance = 655.519	 itinerary = V1IO694NT8GFKXLARQBPMSCW520YZHEU3DJ7
+generation: 11 shortest distance = 600.198	 itinerary = V1YHZUE02BD3R7LAT4NGX9KF8JI6OSW5CMPQ
+generation: 12 shortest distance = 580.442	 itinerary = V1IO6JQEUZYH5CWSMPBD3R7LAGX8TN49KF02
+generation: 15 shortest distance = 549.324	 itinerary = V1YHZ02ECWS5PMQBDR37LAFKGX9NT84IO6UJ
+generation: 16 shortest distance = 548.357	 itinerary = V1YHZUE025CWSMPQBDR3GX9KF84NT6OI7LAJ
+generation: 17 shortest distance = 476.113	 itinerary = V1YHZUE025CWSMPQBDR37LAFKGX9TN84IO6J
+generation: 20
+generation: 23 shortest distance = 472.62	 itinerary = V1YZH5CWSMPQBDR37LAF9KGXNT48OI6UE02J
+generation: 27 shortest distance = 453.554	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48OI6J
+generation: 40
+generation: 52 shortest distance = 452.975	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48IO6J
+generation: 54 shortest distance = 450.238	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48OI6J
+generation: 60
+generation: 70 shortest distance = 449.658	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48IO6J
+generation: 80
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 8660070

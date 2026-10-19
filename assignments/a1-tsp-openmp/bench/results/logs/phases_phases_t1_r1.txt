@@ -1,0 +1,32 @@
+# threads = 1
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1034.08	 itinerary = I61YHO9F48KGATL7UJR3BQ2D0XNZWSC5EVPM
+generation: 2 shortest distance = 1008.74	 itinerary = ZH5WSYU2BDEJK4GXFTAL9M0N3RQPC768OIV1
+generation: 3 shortest distance = 878.88	 itinerary = T84GN63RAL7XFK9OIVZH5WSCPE01YJ2MQUBD
+generation: 4 shortest distance = 870.596	 itinerary = DBQPC52EZUHWSMK4GJY1VOI03R7AL9FNX8T6
+generation: 5 shortest distance = 758.672	 itinerary = V1YH5SCWMEPBDR3QLAKGFJ0UZI8479XNTO62
+generation: 6 shortest distance = 670.045	 itinerary = V1YZHCWS5UJ6FAXG948TNKDQBPM02ER37LOI
+generation: 7 shortest distance = 663.517	 itinerary = V1YH5CWSPM2E0BQ3R7LAKXNTI84FGJ69OUZD
+generation: 9 shortest distance = 655.617	 itinerary = V1YZH5CWSPM2E0BQ3R7KALXNTI84FG9OUJ6D
+generation: 11 shortest distance = 614.944	 itinerary = V1YZH5CWSPM2E0BQ3R7LAKXNTI84FG9OUJ6D
+generation: 12 shortest distance = 597.578	 itinerary = V1YZH5CWSPM20J6DBQ3R7LAKFG9TIO84NXUE
+generation: 13 shortest distance = 564.653	 itinerary = V1YH5WCSMPBQD3R7LAGKFXN9T48I6O0EUZ2J
+generation: 14 shortest distance = 555.607	 itinerary = V1YZH5CWSMPBDR37LAKF94NTG8X6IOU2EJ0Q
+generation: 15 shortest distance = 517.756	 itinerary = V1IO684TNXKF9GAL7R3DBQMP2SW5CZHYUE0J
+generation: 17 shortest distance = 504.433	 itinerary = V1OI68T4NXKFAL7R3QDBPMSWC5HYZUE02J9G
+generation: 20
+generation: 20 shortest distance = 484.404	 itinerary = V1YZHE0J6OI84TNXKF9GAL7R3DBQPMSWC52U
+generation: 21 shortest distance = 470.01	 itinerary = V1YZHUE0J6OI84TNXKF9GAL7R3DBQPMSWC52
+generation: 26 shortest distance = 466.045	 itinerary = V1YZHUE02WSC5MPQBDR37LAF9KGXNT48IO6J
+generation: 35 shortest distance = 453.554	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48OI6J
+generation: 40
+generation: 60
+generation: 63 shortest distance = 450.238	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48OI6J
+generation: 74 shortest distance = 449.658	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48IO6J
+generation: 80
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 14875925
+PHASES threads=1 eval_loop=4.49197 sort=1.47355 select=0.0257617 crossover=8.7259 mutate=0.133428 populate=0.0245587

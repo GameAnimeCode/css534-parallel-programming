@@ -1,0 +1,31 @@
+# threads = 10
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1040.83	 itinerary = V1WMPC20E5SBAF97DLGN4RQJT3OUHYZ8I6KX
+generation: 2 shortest distance = 960.314	 itinerary = V15SBQ3X6F9GDRA7N4TKOJUZEHYWMPC208IL
+generation: 3 shortest distance = 903.779	 itinerary = YHZ94K7ALRBQPM20D3GXNTFIUEC5SW6O18JV
+generation: 4 shortest distance = 835.366	 itinerary = 4XK9F8TNGAL3RQSWC50PBDM2ZOJ6I1YUHEV7
+generation: 5 shortest distance = 762.184	 itinerary = 4XK9F8TNGAL3RQDBM2WS5C7E0PJ6IOZYUH1V
+generation: 6 shortest distance = 689.057	 itinerary = V1YZHE02SWC54XK9F8TNGAL3RQDMPB7OJ6IU
+generation: 8 shortest distance = 680.109	 itinerary = V1YZHE02SWC54XK9FL3RQDMPB78TNGA6OIUJ
+generation: 9 shortest distance = 676.238	 itinerary = 1VZYUE0JQBDR37LAGN4TXFK9O86IH5CMW2SP
+generation: 10 shortest distance = 619.856	 itinerary = NT48XK9FGAL7R3QDBMPWSC5UZHY1VOJ6I0E2
+generation: 12 shortest distance = 607.377	 itinerary = V1OI6J7LAKFGX4N8T9YHZUER3DBPMSCW520Q
+generation: 13 shortest distance = 567.422	 itinerary = V1YZHUC5WSMPBDR37LA6IO8TKF94NXGJ0E2Q
+generation: 14 shortest distance = 547.048	 itinerary = V1YHZJ2DBPMSWC50EU6IO84XNT9FGKAL7R3Q
+generation: 15 shortest distance = 510.169	 itinerary = V1YZH5CWSMPBQD3R7ALFK9GXN4TOIUE20J68
+generation: 18 shortest distance = 503.999	 itinerary = V1YZHUE02WSC5MPBD7LAGXKF94NT8OI6JR3Q
+generation: 20
+generation: 22 shortest distance = 485.361	 itinerary = V1YZHUE02WSC5MPQBDR37LAGXNT49FK8IO6J
+generation: 23 shortest distance = 483.412	 itinerary = V1YZHUE02WSC5MPBQDR37LAFK9GXNT486OIJ
+generation: 27 shortest distance = 458.176	 itinerary = V1YZHUE025CWSMPQBDR37LAFK9GXNT48IO6J
+generation: 40
+generation: 55 shortest distance = 454.86	 itinerary = V1YZHUE025CWSMPQBD3R7LAFK9GXNT48IO6J
+generation: 60
+generation: 63 shortest distance = 452.975	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48IO6J
+generation: 73 shortest distance = 449.658	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48IO6J
+generation: 80
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 4255725

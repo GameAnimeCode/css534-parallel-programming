@@ -1,0 +1,31 @@
+# threads = 8
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1045.32	 itinerary = B20PD3QRLXFJN7AG48KT96IHWCUYZOEMS51V
+generation: 2 shortest distance = 949.629	 itinerary = TNK468FX9IOUHEZVJCSW52DQBPM0ARG1YL73
+generation: 3 shortest distance = 848.663	 itinerary = AFLN9KXTG473RBQDPMSW50HC2UJV1IOYEZ68
+generation: 4 shortest distance = 845.811	 itinerary = J7R3X4NGTFAL9K8I1VYZ2W5CBQP0UHO6EMSD
+generation: 5 shortest distance = 768.493	 itinerary = YZUH5WCMBQP2SJ1VIOFX489A7L3RKNTG6E0D
+generation: 6 shortest distance = 731.761	 itinerary = V1I6O489XTFGNKA7JE0L3RDPBQSMZYH2U5WC
+generation: 7 shortest distance = 697.228	 itinerary = V1IO489XTFGNKA7L3RDPBQSMZYH5WC0JE2U6
+generation: 10 shortest distance = 581.89	 itinerary = V1OI6JUE0DBPMSWHZY5C2QR37ALFXNT489KG
+generation: 11 shortest distance = 554.944	 itinerary = V1YZUHE025WCSMPBQDR37J4KFALG96OI8TNX
+generation: 14 shortest distance = 527.397	 itinerary = V1YZH5CWSMPBQDR37ALFXKT489NGOI6JUE02
+generation: 19 shortest distance = 492.809	 itinerary = V1YZHUE025CWSMPQBDR37LAFKXNT4J6IO89G
+generation: 20
+generation: 25 shortest distance = 487.958	 itinerary = V1YZHUE02WSC5MPBQDR37LAF9KGXNT486JIO
+generation: 27 shortest distance = 474.883	 itinerary = V1YZHUE02WSC5MPQBDR37LAKF9GXNT48IO6J
+generation: 29 shortest distance = 466.045	 itinerary = V1YZHUE02WSC5MPQBDR37LAF9KGXNT48IO6J
+generation: 40
+generation: 50 shortest distance = 461.129	 itinerary = V1YZHUE02W5CSMPQBDR37LAF9KGXNT48IO6J
+generation: 60
+generation: 62 shortest distance = 460.779	 itinerary = V1YZHUE025WCSMPQBDR37LAF9KGXNT48OI6J
+generation: 66 shortest distance = 458.391	 itinerary = V1YZHUE02W5CSMPQBD3R7LAF9KGXNT48OI6J
+generation: 70 shortest distance = 457.506	 itinerary = V1YZHUE025CSWMPQBDR37LAF9KGXNT48IO6J
+generation: 80
+generation: 85 shortest distance = 452.975	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48IO6J
+generation: 100
+generation: 108 shortest distance = 449.658	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48IO6J
+generation: 120
+generation: 140
+elapsed time = 4364027

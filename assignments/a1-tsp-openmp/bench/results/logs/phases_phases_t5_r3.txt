@@ -1,0 +1,31 @@
+# threads = 5
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 997.702	 itinerary = IO1YH69F48KGATL7UJR3BQ2ZWSCENXVD05PM
+generation: 2 shortest distance = 978.032	 itinerary = OI0Z1YVXLA4TN9873REUHWJFGK6M52DBPQSC
+generation: 3 shortest distance = 842.58	 itinerary = IV1H02MD3RQBPCSW5FLA9GX4T8NJ76ZUYEOK
+generation: 4 shortest distance = 838.993	 itinerary = 1VO60JU5SCWHZY8N4XTKGR3A7EMBDQP2F9LI
+generation: 5 shortest distance = 785.829	 itinerary = V1UZYHJ0WC5S2EINXGAFDBMPQR384T6K7LO9
+generation: 6 shortest distance = 711.017	 itinerary = 1VO602MBD3RQPCW5SI8N4TKGXF9LA7EJUYHZ
+generation: 7 shortest distance = 706.713	 itinerary = 1VI698NTXFALJ73RDMPCSW5HZYE02BQUKG4O
+generation: 9 shortest distance = 679.847	 itinerary = V1YZJ0EIO6KF9XGT4N85WSCMPDBQR37LA2HU
+generation: 10 shortest distance = 647.386	 itinerary = 1VIO684NTZYHUE02MPSCW5BQ3RDL7AJ9FXKG
+generation: 12 shortest distance = 581.739	 itinerary = OI84TNXGKFAL7R3DPMQBSWC5H1VYZUE20J69
+generation: 15 shortest distance = 564.286	 itinerary = V1YZHE025CWSMPQBD3R7L9FKXNT486IOGUJA
+generation: 16 shortest distance = 532.174	 itinerary = V1OI684NTGXKF9AL7R3DBPMSWC5UE0JYZH2Q
+generation: 17 shortest distance = 485.724	 itinerary = V1YZHUE025CWSMPQBD3R7LAFKXNT486IOJ9G
+generation: 20
+generation: 21 shortest distance = 464.823	 itinerary = V1YZHUE025CWSMPQBD3R7LAFK9GXNT486IOJ
+generation: 24 shortest distance = 463.87	 itinerary = V1YZHUE025CWSMPQBD3R7LAFK9GXNT486OIJ
+generation: 36 shortest distance = 458.176	 itinerary = V1YZHUE025CWSMPQBDR37LAFK9GXNT48IO6J
+generation: 40
+generation: 47 shortest distance = 454.86	 itinerary = V1YZHUE025CWSMPQBD3R7LAFK9GXNT48IO6J
+generation: 60
+generation: 61 shortest distance = 453.554	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48OI6J
+generation: 67 shortest distance = 449.658	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48IO6J
+generation: 80
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 4602563
+PHASES threads=5 eval_loop=1.03922 sort=1.48646 select=0.027299 crossover=1.88091 mutate=0.141294 populate=0.0266608

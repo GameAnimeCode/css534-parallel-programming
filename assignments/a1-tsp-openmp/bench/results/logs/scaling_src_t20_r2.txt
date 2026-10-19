@@ -1,0 +1,31 @@
+# threads = 20
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1048.39	 itinerary = I61YHO9F48KGATL7UJR3BQ2D0WSCZNXV5PEM
+generation: 2 shortest distance = 933.93	 itinerary = I84NOV25QDBPMSCWZ0J6UE7LYH1XKT93RGFA
+generation: 4 shortest distance = 831.428	 itinerary = V1IE3RQBPDMS09AL784TKGFX6OJ5CW2HZYUN
+generation: 5 shortest distance = 795.526	 itinerary = 1VYZ6OIAKF4NL73RGXT89JE02WPS5CMDHUQB
+generation: 6 shortest distance = 726.051	 itinerary = T4XK9AFL73RDBMP0EWSC5HY68GNOIZ1VUJ2Q
+generation: 8 shortest distance = 686.758	 itinerary = GK9FAL3RQMWCPS5HZUE0J7DB2Y1VIO84TNX6
+generation: 9 shortest distance = 671.414	 itinerary = V1YZ5CWSMPB7R3DJ6IOT84NXFAKGL9H20UEQ
+generation: 10 shortest distance = 634.63	 itinerary = V1YZ5CWSMPBDJ6IO8NTX4FL7R3G9KAHU0E2Q
+generation: 11 shortest distance = 578.38	 itinerary = V1YZ0E2UH5CWSMPBDR37LAFXNT6IO894GKJQ
+generation: 13 shortest distance = 573.831	 itinerary = V1ZHYOI6FAL7R3QBDMPSWC520EUJGXK48NT9
+generation: 15 shortest distance = 558.748	 itinerary = NT489FKGXLA7R3DBQPMWS5C20EUZYHJ6IO1V
+generation: 17 shortest distance = 517.269	 itinerary = V1IO69FKXNT48GAL7R3DBQPMSWC5ZH20EUYJ
+generation: 18 shortest distance = 507.024	 itinerary = V1YZHUE02WSC5MPQBDR37LAFKGXNT8IOJ649
+generation: 20
+generation: 20 shortest distance = 463.778	 itinerary = V1YZHUE0J6OI84NTGXK9FAL7R3DBQPMSWC52
+generation: 31 shortest distance = 462.252	 itinerary = V1YZHUE20J6OI84NTXKF9GAL7R3DBQPMSWC5
+generation: 36 shortest distance = 458.176	 itinerary = V1YZHUE025CWSMPQBDR37LAFK9GXNT48IO6J
+generation: 40
+generation: 54 shortest distance = 457.78	 itinerary = V1YZHUE20J6OI84NTXGF9KAL7R3DBQPMSWC5
+generation: 60
+generation: 63 shortest distance = 452.975	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48IO6J
+generation: 71 shortest distance = 449.552	 itinerary = V1YZHUE20J6OI84NTXGK9FAL7R3DBQPMSWC5
+generation: 80
+generation: 81 shortest distance = 447.638	 itinerary = V1YZHUE20J6OI84TNXGK9FAL7R3DBQPMSWC5
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 4393658

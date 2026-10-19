@@ -1,0 +1,30 @@
+# threads = 4
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1078.59	 itinerary = 6A4T8FNI91VUYMBR3Q0CLG7D2JOKXEHZ5WSP
+generation: 2 shortest distance = 989.499	 itinerary = 1NFAL7D3RGIVY6O4KMPS5WC2XT980HEQBZUJ
+generation: 3 shortest distance = 907.65	 itinerary = VOIN4FX986EH1J2SPR3LAKGT70BMZ5WCQDUY
+generation: 4 shortest distance = 685.981	 itinerary = UI1VYZ20EH5WCSMPBDQ3R7JT9FALO6K4NXG8
+generation: 9 shortest distance = 652.725	 itinerary = V1YZHU02E5WSCJXNT4OI689FKGR3QBDAL7MP
+generation: 11 shortest distance = 621.644	 itinerary = V1YUZHMW5CS2PBD3R7LA9FK48NXTGIO6EJ0Q
+generation: 12 shortest distance = 593.514	 itinerary = V1IO6J0E2SWHMPBQD3R7LAFK984NTGXUZYC5
+generation: 14 shortest distance = 544.733	 itinerary = V1YZHUE06OI84TN9XFKGAL7R3DQBPM2C5WSJ
+generation: 17 shortest distance = 526.855	 itinerary = V1YZHUJ0E2WSC5MPDBQ3R7LAGKF9IO6TNX48
+generation: 18 shortest distance = 514.087	 itinerary = V1YZUHIO684NTGXK9FAL7J0E2WSC5MPBDR3Q
+generation: 19 shortest distance = 477.564	 itinerary = V1YZH5CWS20EUJ6OI84NTGXK9FAL7R3QBDPM
+generation: 20
+generation: 25 shortest distance = 470.637	 itinerary = V1YZHUE02SWC5MPQBDR37LAFK9GXNT48OI6J
+generation: 37 shortest distance = 469.372	 itinerary = V1YZHUE025CWSMPQBDR37LAFK9XGNT486OIJ
+generation: 40
+generation: 40 shortest distance = 466.045	 itinerary = V1YZHUE02WSC5MPQBDR37LAF9KGXNT48IO6J
+generation: 46 shortest distance = 458.176	 itinerary = V1YZHUE025CWSMPQBDR37LAFK9GXNT48IO6J
+generation: 55 shortest distance = 457.711	 itinerary = V1YZHUE025CWSMPQBDR37LA9FKGXNT48OI6J
+generation: 60
+generation: 70 shortest distance = 453.554	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48OI6J
+generation: 80
+generation: 81 shortest distance = 452.975	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48IO6J
+generation: 94 shortest distance = 449.658	 itinerary = V1YZHUE025CWSMPQBD3R7LAF9KGXNT48IO6J
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 13305379

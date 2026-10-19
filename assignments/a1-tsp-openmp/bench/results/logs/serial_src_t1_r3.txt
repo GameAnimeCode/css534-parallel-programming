@@ -1,0 +1,26 @@
+# threads = 1
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1001.72	 itinerary = V1X8OT4J37RL9FZUH0EYCWSPMBQ2AG6NKID5
+generation: 2 shortest distance = 953.648	 itinerary = 1ZUYVH2BQPC5MWSEDF4NOXI8K9TLGJ03RA76
+generation: 3 shortest distance = 914.033	 itinerary = V1UZOT48I6NKXF9AGSPMBQRLDJ37CWH0EY25
+generation: 4 shortest distance = 856.065	 itinerary = L9F4NT87R3BSCW0UZYH25EXKGAOIV61JDPMQ
+generation: 5 shortest distance = 684.611	 itinerary = V1ZH20E5WSCPQMBDR7LAFKXG8N49TIO3J6UY
+generation: 9 shortest distance = 654.369	 itinerary = 1VIO8X4NTGKF9ALR370J6UYZH5CWMPE2BDSQ
+generation: 11 shortest distance = 638.846	 itinerary = V1IOU02SWC5HZYEJGFLA73RDQBPMK9NT4X86
+generation: 12 shortest distance = 547.834	 itinerary = V1IO4NXGJUZHY5CWSMP2E068T9KFAL7R3DBQ
+generation: 16 shortest distance = 528.15	 itinerary = V1IO684NTGXK9FAL7R3QBD20MPSWC5EUZYHJ
+generation: 19 shortest distance = 479.13	 itinerary = V1YZH5CWSM20EUJ6OI84NTGXKF9AL7R3DBQP
+generation: 20
+generation: 21 shortest distance = 466.955	 itinerary = V1YZH5CWS20EUJ6OI8TN4GXK9FAL73RDBPMQ
+generation: 22 shortest distance = 453.856	 itinerary = V1YZH5CWSMP20EUJ6OI84NTGXK9FAL7R3DBQ
+generation: 37 shortest distance = 452.577	 itinerary = V1YZH5CWSMP20EUJ6OI84TNGXK9FAL7R3DBQ
+generation: 40
+generation: 48 shortest distance = 449.302	 itinerary = V1YZH5CWSMP20EUJ6OI84NTXGK9FAL7R3DBQ
+generation: 60
+generation: 65 shortest distance = 447.388	 itinerary = V1YZH5CWSMP20EUJ6OI84TNXGK9FAL7R3DBQ
+generation: 80
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 15192945

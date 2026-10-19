@@ -1,0 +1,30 @@
+# threads = 5
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 994.238	 itinerary = V1X8OT4J37RL9FZUH0EYCWSPMBQ26GANKI5D
+generation: 2 shortest distance = 961.434	 itinerary = 4NK9XGFOI6873BQC5YUEWMPS0H2ZJRA1VTLD
+generation: 3 shortest distance = 927.429	 itinerary = 1VOIEH5CMSPQBWKGXN48FJ0YU269TZAR3D7L
+generation: 4 shortest distance = 842.641	 itinerary = V6F9K4TNG8ALDR37XH5CZJ0WS2UEPMQBY1OI
+generation: 5 shortest distance = 741.333	 itinerary = 8XKGN4TF9LA76HZYUEJDBMP20SWC5V1OI3RQ
+generation: 7 shortest distance = 667.704	 itinerary = V1ZHYJ6IO8X9GUTN4KFAL70E2BDR3QPM5WSC
+generation: 8 shortest distance = 607.728	 itinerary = V1YHZU0EW5CS2MPBQD3J7LA9FKGXNT4OI68R
+generation: 11 shortest distance = 580.038	 itinerary = V1YZH5CWSMPQBD3RLA768TN4G9FKXIOEJ0U2
+generation: 12 shortest distance = 551.52	 itinerary = V1YZHE025CWSMPBQDR37LAFK9UOI8TN4XGJ6
+generation: 13 shortest distance = 543.742	 itinerary = V1YZH5CWSMPBQDR37GK9F4XTN8IO6J02EUAL
+generation: 16 shortest distance = 522.337	 itinerary = V1YZHU0E25CWSMPQBDR37LA9KF4XNT6JOI8G
+generation: 17 shortest distance = 519.851	 itinerary = V1YZH5CWS20J6OIUEPMDBQ3R7LAF9KGXT4N8
+generation: 18 shortest distance = 508.226	 itinerary = V1YHZUE02CWSMPQBDR37LAGXNTKF948IO6J5
+generation: 19 shortest distance = 492.775	 itinerary = V1YZHUE02WSC5MPQBDR37LAGXNT849FKJ6OI
+generation: 20
+generation: 22 shortest distance = 483.004	 itinerary = V1YZHUE02WSC5MPQBD3R7LAF9KGXTN48OIJ6
+generation: 23 shortest distance = 453.458	 itinerary = V1YZH5CWSMP20EUJ6OI84NTXGKF9AL7R3DBQ
+generation: 40
+generation: 45 shortest distance = 451.545	 itinerary = V1YZH5CWSMP20EUJ6OI84TNXGKF9AL7R3DBQ
+generation: 56 shortest distance = 449.302	 itinerary = V1YZH5CWSMP20EUJ6OI84NTXGK9FAL7R3DBQ
+generation: 60
+generation: 69 shortest distance = 447.388	 itinerary = V1YZH5CWSMP20EUJ6OI84TNXGK9FAL7R3DBQ
+generation: 80
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 4548077

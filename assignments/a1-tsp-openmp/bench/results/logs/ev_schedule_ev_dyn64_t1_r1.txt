@@ -1,0 +1,31 @@
+# threads = 1
+generation: 0
+generation: 0 shortest distance = 1265.72	 itinerary = V1SPMBQAN26G4J37DX8OTF95ZUH0EYRLCWKI
+generation: 1 shortest distance = 1066.97	 itinerary = I61YHO9F48KGATL7UJR3BQ2P5XNZCSWMD0VE
+generation: 2 shortest distance = 950.031	 itinerary = V1JTN46OI9LGFPWCM20E5SHZ37DBQA8XKRUY
+generation: 3 shortest distance = 865.007	 itinerary = V1JUYZHA8XKF9LGN46OISC5MWQDBR370E2PT
+generation: 4 shortest distance = 846.015	 itinerary = 8TNX9I6ZHYO1VUELFGK4A3RQBCSW0J27DMP5
+generation: 5 shortest distance = 763.382	 itinerary = OI164TFKGX9A3RQMBPDYZH5CWS2EJ0UVN8L7
+generation: 6 shortest distance = 762.687	 itinerary = ZY1VI6OUGK9ALXTN48FJ0EWSMPBDR37QH25C
+generation: 7 shortest distance = 705.867	 itinerary = ZY1VI6OUGXTN48FK9AL7QMPBDR3J0EWS25CH
+generation: 8 shortest distance = 653.591	 itinerary = V1YZHUJ02SW5CMPBQD3RLAKXNT987F6O4GIE
+generation: 10 shortest distance = 628.852	 itinerary = V1YZHUJ02SW5CMPBD7LAKXNT984G6OIEF3RQ
+generation: 11 shortest distance = 582.878	 itinerary = V1OI684TXN9FK02EUZYH5CWSMPQBD7LJAGR3
+generation: 14 shortest distance = 509.929	 itinerary = V1YZHUJE025CWSMPQBD3R7LAKFOI698NX4TG
+generation: 18 shortest distance = 503.866	 itinerary = V1IO684NT9XGKFAL7R3QBDPMSWC5HZYU0EJ2
+generation: 20
+generation: 20 shortest distance = 503.121	 itinerary = V1YZHUE025CWSMPBDQ3R7J6OI8T4NXKFGAL9
+generation: 22 shortest distance = 498.479	 itinerary = V1YZHUE025CWSMPBDQ3R7J6OI84NT9XKFALG
+generation: 23 shortest distance = 494.419	 itinerary = V1YZHUE025CWSMPBDR37LAFK9GXNT486OIJQ
+generation: 24 shortest distance = 476.426	 itinerary = V1YZHUE02J6OI84NTXKF9GAL7R3DBQPMSCW5
+generation: 25 shortest distance = 454.503	 itinerary = V1YZH5CWSMP20EUJ6OI84NTXG9KFAL7R3DBQ
+generation: 40
+generation: 60
+generation: 67 shortest distance = 453.554	 itinerary = V1YZHUE025CWSMPQBDR37LAF9KGXNT48OI6J
+generation: 78 shortest distance = 449.302	 itinerary = V1YZH5CWSMP20EUJ6OI84NTXGK9FAL7R3DBQ
+generation: 80
+generation: 96 shortest distance = 447.388	 itinerary = V1YZH5CWSMP20EUJ6OI84TNXGK9FAL7R3DBQ
+generation: 100
+generation: 120
+generation: 140
+elapsed time = 15037923
