@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// Cities 'A'-'Z' use indexes 0-25, so the digit cities '0'-'9' start at this index.
+// 'A'-'Z' use indexes 0-25, so the digit cities '0'-'9' start at this index.
 constexpr int LETTER_CITIES = 26;
 
 // --------------------------------------------------------------------------
@@ -15,7 +15,7 @@ constexpr int LETTER_CITIES = 26;
 // --------------------------------------------------------------------------
 
 /*
- * Converts a city name to its index in coordinates: 'A'-'Z' -> 0-25, '0'-'9' -> 26-35.
+ * Converts a city name to its index: 'A'-'Z' -> 0-25, '0'-'9' -> 26-35.
  */
 int city_to_index(char city)
 {
@@ -32,7 +32,7 @@ int city_to_index(char city)
 }
 
 /*
- * Converts an index from 0 to 35 back to its city name. Inverse of city_to_index().
+ * Converts an index (0-35) back to its city name. Inverse of city_to_index().
  */
 char index_to_city(int index)
 {
@@ -137,7 +137,8 @@ char next_city_in_trip(char city, const char itinerary[CITIES + 1])
  * Fills offspring2 with the complement of offspring1. The city at index k is
  * replaced by the city at index CITIES - 1 - k, so A <-> 9, B <-> 8, and so on.
  */
-void crossover_complement(const char offspring1[CITIES + 1], char offspring2[CITIES + 1])
+void crossover_complement(const char offspring1[CITIES + 1],
+                          char offspring2[CITIES + 1])
 {
   for (int i = 0; i < CITIES; i++)
   {
@@ -180,16 +181,18 @@ void evaluate(Trip trip[CHROMOSOMES], int coordinates[CITIES][2])
 
 /*
  * Generates new TOP_X offsprings from TOP_X parents.
- * Note that the i-th and (i+1)-th offsprings are created from the i-th and (i+1)-th parents
+ * Note that the i-th and (i+1)-th offsprings are created from the i-th and
+ * (i+1)-th parents
  */
-void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITIES][2])
+void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X],
+               int coordinates[CITIES][2])
 {
   // Base seed drawn once, on one thread, so it changes every generation.
   unsigned int base_seed = rand();
 
 #pragma omp parallel
   {
-    // Each thread keeps its own rand_r seed, so threads never share random state.
+    // Each thread keeps its own rand_r seed, so threads never share state.
     unsigned int seed = base_seed + omp_get_thread_num();
 
 #pragma omp for schedule(dynamic, 64)
@@ -232,8 +235,10 @@ void crossover(Trip parents[TOP_X], Trip offsprings[TOP_X], int coordinates[CITI
         // Spec: If neither city is visited, select the closer one.
         else
         {
-          float parent1_next_distance = city_distance(current_city, parent1_next, coordinates);
-          float parent2_next_distance = city_distance(current_city, parent2_next, coordinates);
+          float parent1_next_distance =
+              city_distance(current_city, parent1_next, coordinates);
+          float parent2_next_distance =
+              city_distance(current_city, parent2_next, coordinates);
 
           if (parent1_next_distance <= parent2_next_distance)
           {
