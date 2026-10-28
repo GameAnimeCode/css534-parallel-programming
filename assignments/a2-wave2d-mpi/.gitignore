@@ -1,0 +1,9 @@
+# Prebuilt executables from the course handouts. Kept locally as oracles,
+# not published.
+src/Wave2D
+src/Wave2D_mpi
+lab/greetings
+lab/matrix
+lab/matrix_mpi
+# Same content as src/out1.txt
+src/out6.txt
