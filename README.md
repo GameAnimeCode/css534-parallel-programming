@@ -34,7 +34,9 @@ Each assignment is a folder with C++ or Java code and a writeup. Writeups are Ma
 
 ### 1. Open the dev container
 
-Open the repository in VS Code and choose **Reopen in Container**. The image includes g++, make, gdb, OpenMPI, Python 3 (for tooling), a JDK (Java 25, the current LTS), Quarto, and TinyTeX (the LaTeX engine Quarto uses for PDF output).
+Open the repository in VS Code and choose **Reopen in Container**. The image includes g++, make, gdb, MPICH2 1.2.1p1, Python 3 (for tooling), a JDK (Java 25, the current LTS), Quarto, and TinyTeX (the LaTeX engine Quarto uses for PDF output).
+
+MPICH2 1.2.1p1 is the MPI the course's cssmpi machines compile and run with, installed at the same prefix, `/usr/apps/mpich121-x86_64`, by `.devcontainer/install-mpich121.sh`. The one difference is the launcher: cssmpi starts an mpd ring with `CSSmpdboot`, which needs Python 2, while this image uses MPICH's hydra. `mpic++`, `mpirun -np N`, and the headers and libraries are the same, so code that builds and runs here builds and runs there.
 
 The container requests an NVIDIA GPU (`--device nvidia.com/gpu=all` in `.devcontainer/devcontainer.json`). If your machine has no GPU configured for containers, remove that line.
 

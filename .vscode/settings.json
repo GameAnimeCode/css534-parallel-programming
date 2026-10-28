@@ -2,11 +2,21 @@
   "C_Cpp.default.compilerPath": "/usr/bin/g++",
   "C_Cpp.default.cppStandard": "gnu++17",
   "C_Cpp.default.cStandard": "gnu17",
-  "C_Cpp.default.compilerArgs": ["-fopenmp"],
+  "C_Cpp.default.compilerArgs": [
+    "-fopenmp"
+  ],
   "[c]": {
-    "editor.rulers": [80]
+    "editor.rulers": [
+      80
+    ]
   },
   "[cpp]": {
-    "editor.rulers": [80]
-  }
+    "editor.rulers": [
+      80
+    ]
+  },
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/**",
+    "/usr/apps/mpich121-x86_64/include"
+  ]
 }

@@ -12,7 +12,6 @@ RUN dnf config-manager addrepo --from-repofile https://cli.github.com/packages/r
   gh \
   python3 python3-pip \
   gcc-c++ make gdb \
-  openmpi openmpi-devel \
   java-25-openjdk-devel \
   openssh-clients rsync \
   docker podman podman-compose \
@@ -20,9 +19,14 @@ RUN dnf config-manager addrepo --from-repofile https://cli.github.com/packages/r
   zsh tmux vim powerline powerline-fonts tmux-powerline vim-powerline && \
   dnf clean all
 
-# Fedora installs OpenMPI outside the default path; expose mpicc, mpicxx, and mpirun.
-ENV PATH="/usr/lib64/openmpi/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib"
+# MPICH2 1.2.1p1 at the cssmpi prefix, so mpic++, mpirun, headers, and
+# libraries match the course cluster (see install-mpich121.sh).
+COPY install-mpich121.sh /tmp/install-mpich121.sh
+RUN /tmp/install-mpich121.sh && rm /tmp/install-mpich121.sh
+ENV PATH="/usr/apps/mpich121-x86_64/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/apps/mpich121-x86_64/lib"
+# hydra launches local ranks with fork; the cluster script passes a hostfile.
+ENV HYDRA_BOOTSTRAP=fork
 ENV JAVA_HOME=/usr/lib/jvm/java-25-openjdk
 
 # Install and setup Quarto to render the markdown writeups to PDF.
