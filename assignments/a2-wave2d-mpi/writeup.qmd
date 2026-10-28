@@ -1,0 +1,51 @@
+---
+format:
+  pdf:
+    documentclass: article
+    papersize: letter
+    fontsize: 12pt
+    geometry:
+      - margin=1in
+    include-in-header: preamble.tex
+# Write cross-references as @tbl-name and @fig-name: whole-ref-links.lua makes
+# the whole "Table 1" or "Figure 1" the link in the PDF, not just the number.
+# drawio-svg.lua hides the "Text is not SVG" line draw.io adds to saved SVGs.
+filters:
+  - path: ../../templates/writeup/whole-ref-links.lua
+    at: post-quarto
+  - path: ../../templates/writeup/drawio-svg.lua
+    at: pre-quarto
+---
+
+```{=latex}
+% Fill these in once per assignment. They feed the first-page block,
+% the running header (page 2 onward), and the footer.
+% Name, last name, ID, and email are NOT set here. scripts/build-writeup.sh
+% injects them at build time from .local/student.env, so they stay out of git.
+\newcommand{\courseName}{CSS 534: Parallel Programming in Grid and Cloud}
+\newcommand{\dueDate}{Month DD, YYYY}
+\newcommand{\asgTitle}{Program 2: Parallelizing Wave Diffusion with MPI and OpenMP}
+\newcommand{\codeRepo}{\url{https://github.com/GameAnimeCode/css534-parallel-programming}}
+
+\thispagestyle{firstpage}
+\noindent \stuName \hfill \courseName \\
+\stuId{} | \stuEmail \hfill \dueDate
+
+\bigskip
+\begin{center}
+{\Large\bfseries \asgTitle}
+\end{center}
+```
+
+Start your introduction or response here.
+
+## Section heading
+
+Body text. Code and results go here, for example:
+
+```cpp
+#pragma omp parallel for reduction(+ : sum)
+for (int i = 0; i < n; i++) {
+  sum += data[i];
+}
+```
