@@ -1,0 +1,45 @@
+# Four containers that stand in for four MPI machines. Start them with
+# cluster.sh, which sets CSS534_HOST_WORKSPACE (the repository's path on the
+# host) for the bind mount below. The repository appears at /workspace in
+# every node, the same path as in the devcontainer, so binaries built there
+# run unchanged across the nodes.
+name: css534-mpi
+
+x-node: &node
+  build:
+    # Repository root, trimmed by .containerignore, so the image can run
+    # .devcontainer/install-mpich121.sh like the dev container does.
+    context: ../../..
+    dockerfile: assignments/a2-wave2d-mpi/cluster/Dockerfile
+  image: localhost/css534-mpi-node
+  # 4 CPUs of quota per node, like a cssmpi machine. Rootless podman cannot
+  # pin CPU sets, so this is a time share, not fixed cores.
+  cpus: 4
+  shm_size: 1g
+  security_opt:
+    - label=disable
+  volumes:
+    - ${CSS534_HOST_WORKSPACE}:/workspace
+  networks:
+    - mpi
+
+services:
+  node1:
+    <<: *node
+    container_name: css534-node1
+    hostname: node1
+  node2:
+    <<: *node
+    container_name: css534-node2
+    hostname: node2
+  node3:
+    <<: *node
+    container_name: css534-node3
+    hostname: node3
+  node4:
+    <<: *node
+    container_name: css534-node4
+    hostname: node4
+
+networks:
+  mpi: {}

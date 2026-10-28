@@ -1,0 +1,7 @@
+# Nodes of the local test cluster (compose.yaml), each with a 4-CPU quota like
+# a cssmpi machine. hydra places ranks round-robin over these hosts, one per
+# host per pass, the same order the mpd ring on cssmpi uses.
+node1
+node2
+node3
+node4

@@ -1,0 +1,6 @@
+# Build context for assignments/*/cluster/compose.yaml, which builds from the
+# repository root so the node image can reuse .devcontainer/install-mpich121.sh.
+# Everything else stays out of the context.
+*
+!.devcontainer/install-mpich121.sh
+!assignments/*/cluster/hostfile
