@@ -179,13 +179,17 @@ int main(int argc, char *argv[])
 #pragma omp parallel for
     for (int i = stripe_begin; i <= stripe_end; i++)
     {
+      double *curr = z_curr[i];
+      const double *prev = z[t_prev][i];
+      const double *prev_up = z[t_prev][i + 1];
+      const double *prev_down = z[t_prev][i - 1];
+      const double *prev2 = z[t_prev2][i];
+
       for (int j = 1; j < size - 1; j++)
       {
-        z_curr[i][j] =
-            2.0 * z[t_prev][i][j] - z[t_prev2][i][j] +
-            constant_mp_t2 * (z[t_prev][i + 1][j] + z[t_prev][i - 1][j] +
-                              z[t_prev][i][j + 1] + z[t_prev][i][j - 1] -
-                              4.0 * z[t_prev][i][j]);
+        curr[j] = 2.0 * prev[j] - prev2[j] +
+                  constant_mp_t2 * (prev_up[j] + prev_down[j] + prev[j + 1] +
+                                    prev[j - 1] - 4.0 * prev[j]);
       }
     }
 
