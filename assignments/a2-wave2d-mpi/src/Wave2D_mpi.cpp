@@ -16,22 +16,28 @@ using namespace std;
 int main(int argc, char *argv[])
 {
   // verify arguments
-  if (argc != 4)
+  if (argc != 5)
   {
-    cerr << "usage: Wave2D size max_time interval" << endl;
+    cerr << "usage: Wave2D_mpi size max_time interval threads" << endl;
     return -1;
   }
 
   int size = atoi(argv[1]);
   int max_time = atoi(argv[2]);
   int interval = atoi(argv[3]);
+  int threads = atoi(argv[4]);
 
-  if (size < 100 || max_time < 3 || interval < 0)
+  if (size < 100 || max_time < 3 || interval < 0 || threads < 1)
   {
-    cerr << "usage: Wave2D size max_time interval" << endl;
-    cerr << "       where size >= 100 && time >= 3 && interval >= 0" << endl;
+    cerr << "usage: Wave2D_mpi size max_time interval threads" << endl;
+    cerr << "       where size >= 100 && time >= 3 && interval >= 0 && "
+            "threads >= 1"
+         << endl;
     return -1;
   }
+
+  // Set the OpenMP thread count for this rank
+  omp_set_num_threads(threads);
 
   // Init MPI
   int my_rank = 0;
@@ -164,6 +170,7 @@ int main(int argc, char *argv[])
       }
     }
 
+#pragma omp parallel for
     for (int i = stripe_begin; i <= stripe_end; i++)
     {
       for (int j = 1; j < size - 1; j++)
