@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
   int remainder = size % mpi_size;
   int stripe_begin = 0;
   int stripe_end = 0;
+
   if (my_rank < remainder)
   {
     stripe_begin = my_rank * (stripe + 1);
@@ -176,8 +177,46 @@ int main(int argc, char *argv[])
       }
     }
 
+    // Calculate ghost boundary rows first, to send async
+    for (int side = 0; side < 2; side++)
+    {
+      int i = side == 0 ? stripe_begin : stripe_end;
+      double *curr = z_curr[i];
+      const double *prev = z[t_prev][i];
+      const double *prev_up = z[t_prev][i + 1];
+      const double *prev_down = z[t_prev][i - 1];
+      const double *prev2 = z[t_prev2][i];
+
+      for (int j = 1; j < size - 1; j++)
+      {
+        curr[j] = 2.0 * prev[j] - prev2[j] +
+                  constant_mp_t2 * (prev_up[j] + prev_down[j] + prev[j + 1] +
+                                    prev[j - 1] - 4.0 * prev[j]);
+      }
+    }
+
+    // Swap ghost stripes async
+    MPI_Request requests[4];
+    int n_reqs = 0;
+
+    if (my_rank > 0)
+    {
+      MPI_Irecv(z_curr[stripe_begin - 1], size, MPI_DOUBLE, my_rank - 1, 0,
+                MPI_COMM_WORLD, &requests[n_reqs++]);
+      MPI_Isend(z_curr[stripe_begin], size, MPI_DOUBLE, my_rank - 1, 0,
+                MPI_COMM_WORLD, &requests[n_reqs++]);
+    }
+    if (my_rank < mpi_size - 1)
+    {
+      MPI_Irecv(z_curr[stripe_end + 1], size, MPI_DOUBLE, my_rank + 1, 0,
+                MPI_COMM_WORLD, &requests[n_reqs++]);
+      MPI_Isend(z_curr[stripe_end], size, MPI_DOUBLE, my_rank + 1, 0,
+                MPI_COMM_WORLD, &requests[n_reqs++]);
+    }
+
+    // Compute interior rows
 #pragma omp parallel for
-    for (int i = stripe_begin; i <= stripe_end; i++)
+    for (int i = stripe_begin + 1; i < stripe_end; i++)
     {
       double *curr = z_curr[i];
       const double *prev = z[t_prev][i];
@@ -193,49 +232,8 @@ int main(int argc, char *argv[])
       }
     }
 
-    // Swap ghost stripes
-    if (my_rank % 2 == 0)
-    {
-      if (my_rank < mpi_size - 1)
-      {
-        double *send_buff = z_curr[stripe_end];
-        double *recv_buff = z_curr[stripe_end + 1];
-
-        MPI_Send(send_buff, size, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD);
-        MPI_Recv(recv_buff, size, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-      }
-      if (my_rank > 0)
-      {
-        double *send_buff = z_curr[stripe_begin];
-        double *recv_buff = z_curr[stripe_begin - 1];
-
-        MPI_Send(send_buff, size, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD);
-        MPI_Recv(recv_buff, size, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-      }
-    }
-    else
-    {
-      if (my_rank > 0)
-      {
-        double *send_buff = z_curr[stripe_begin];
-        double *recv_buff = z_curr[stripe_begin - 1];
-
-        MPI_Recv(recv_buff, size, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-        MPI_Send(send_buff, size, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD);
-      }
-      if (my_rank < mpi_size - 1)
-      {
-        double *send_buff = z_curr[stripe_end];
-        double *recv_buff = z_curr[stripe_end + 1];
-
-        MPI_Recv(recv_buff, size, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-        MPI_Send(send_buff, size, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD);
-      }
-    }
+    // Block until ghost boundary rows are sent and received
+    MPI_Waitall(n_reqs, requests, MPI_STATUSES_IGNORE);
   } // end of simulation
 
   // finish the timer
