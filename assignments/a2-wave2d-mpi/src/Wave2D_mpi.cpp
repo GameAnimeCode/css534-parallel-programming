@@ -85,6 +85,12 @@ int main(int argc, char *argv[])
 
     counts[i] = (rank_end - rank_begin) * size;
     displacements[i] = rank_begin * size;
+
+    if (i == my_rank)
+    {
+      cerr << "rank[" << i << "]'s range = " << rank_begin << " ~ "
+           << rank_end - 1 << endl;
+    }
   }
 
   // create a simulation space
