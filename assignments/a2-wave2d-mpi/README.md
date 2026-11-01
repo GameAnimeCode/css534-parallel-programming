@@ -17,6 +17,8 @@ A two-dimensional wave simulation (`Wave2D.cpp`), parallelized with MPI across m
 | `src/Wave2D`, `src/Wave2D_mpi` | Handout. The professor's executables, kept locally as oracles but not tracked in git. |
 | `lab/` | Lab 2: `greetings.cpp`, `matrix.cpp`, and `matrix_mpi.cpp`. |
 | `cluster/` | Four containers that act as a local MPI cluster. |
+| `bench/` | Benchmarks run on CSSMPI and their results. See `bench/README.md`. |
+| `figures/` | The report's diagram, editable in draw.io. |
 | `writeup.qmd` | The report. Build it with `scripts/build-writeup.sh a2-wave2d-mpi`. |
 
 ## Build and Run
@@ -90,7 +92,7 @@ Limits: the four-CPU share is a quota, not pinned cores, and the laptop's compil
 
 ## Running on CSSMPI
 
-Log in to one of `cssmpi1` through `cssmpi12`. Login shells there put MPICH2 1.2.1p1 first on `PATH` through `~/.bash_profile` (see `src/mpi_setup.txt`). The professor's `compile.sh` shows the exact build commands:
+Log in to one of `cssmpi1` through `cssmpi24`. Login shells there put MPICH2 1.2.1p1 first on `PATH` through `~/.bash_profile` (see `src/mpi_setup.txt`). The professor's `compile.sh` shows the exact build commands:
 
 ```bash
 g++ Wave2D.cpp Timer.cpp -o Wave2D
