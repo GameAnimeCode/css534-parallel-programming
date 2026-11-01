@@ -1,0 +1,17 @@
+key,value
+init_max,0.0049
+runs,1090
+failed,0
+checks,35
+matches,35
+seq,1.919
+prof_seq,1.919
+base,1.104
+best_time,0.109
+best_config,6r8t
+spread_median_pct,26.3
+spread_max_pct,118.6
+load_min,1.61
+load_max,8.25
+best_threads,8
+in_range_threads,4

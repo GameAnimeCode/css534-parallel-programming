@@ -1,0 +1,13 @@
+rank[0]'s range = 0 ~ 97
+rank[1]'s range = 98 ~ 195
+rank[2]'s range = 196 ~ 293
+rank[3]'s range = 294 ~ 391
+rank[5]'s range = 490 ~ 587
+rank[4]'s range = 392 ~ 489
+PHASES rank=5 init=0.00386906 compute=0.0475886 exchange=0.271983 total=0.323495
+PHASES rank=4 init=0.00398207 compute=0.0700445 exchange=0.249585 total=0.323645
+PHASES rank=0 init=0.003052 compute=0.0657437 exchange=0.254706 total=0.323559
+Elapsed time = 323576
+PHASES rank=2 init=0.00350285 compute=0.0511026 exchange=0.269292 total=0.323932
+PHASES rank=3 init=0.00337911 compute=0.0540557 exchange=0.26602 total=0.323515
+PHASES rank=1 init=0.00374103 compute=0.0595798 exchange=0.26149 total=0.324869

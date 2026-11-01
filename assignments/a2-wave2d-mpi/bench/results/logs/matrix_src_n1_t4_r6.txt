@@ -1,0 +1,2 @@
+rank[0]'s range = 0 ~ 587
+Elapsed time = 306516

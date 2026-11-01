@@ -1,0 +1,15 @@
+date: 2026-11-01 17:44 UTC
+CPU(s):                                  10
+Model name:                              Intel(R) Xeon(R) Platinum 8358P CPU @ 2.60GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      5
+Socket(s):                               1
+CPU max MHz:                             2600.0000
+L1d cache:                               240 KiB (5 instances)
+L2 cache:                                6.3 MiB (5 instances)
+L3 cache:                                48 MiB (1 instance)
+kernel: 5.14.0-687.31.1.el9_8.x86_64
+compiler: g++ (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14)
+mpi: MPICH2 Version:    	1.2.1p1
+mpi: MPICH2 Device:    	ch3:nemesis
+nproc: 10

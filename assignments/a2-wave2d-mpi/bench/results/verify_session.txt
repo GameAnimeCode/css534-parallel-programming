@@ -1,0 +1,11 @@
+$ ./Wave2D 100 500 10 > out1.txt
+Elapsed time = 225879
+$ mpirun -np 6 ./Wave2D_mpi 100 500 10 4 > out6.txt
+rank[0]'s range = 0 ~ 16
+rank[1]'s range = 17 ~ 33
+rank[2]'s range = 34 ~ 50
+rank[4]'s range = 68 ~ 83
+rank[3]'s range = 51 ~ 67
+rank[5]'s range = 84 ~ 99
+Elapsed time = 663226
+$ diff out1.txt out6.txt

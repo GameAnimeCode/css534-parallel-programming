@@ -1,0 +1,6 @@
+rank[0]'s range = 0 ~ 117
+rank[1]'s range = 118 ~ 235
+rank[2]'s range = 236 ~ 353
+rank[4]'s range = 471 ~ 587
+rank[3]'s range = 354 ~ 470
+Elapsed time = 5497385

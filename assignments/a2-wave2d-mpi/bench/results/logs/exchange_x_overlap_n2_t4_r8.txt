@@ -1,0 +1,5 @@
+rank[0]'s range = 0 ~ 293
+rank[1]'s range = 294 ~ 587
+PHASES rank=0 init=0.00283909 compute=0.184198 exchange=0.0566983 total=0.243821
+Elapsed time = 243844
+PHASES rank=1 init=0.00361109 compute=0.163975 exchange=0.0755529 total=0.243233
