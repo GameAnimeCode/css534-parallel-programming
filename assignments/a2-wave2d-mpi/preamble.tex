@@ -44,7 +44,22 @@
 }
 \makeatother
 
+% Charts: pgfplots draws them straight from the CSV summaries in bench/results/summary,
+% so the figures update whenever bench/summarize.py runs on new data.
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+% Spots the author still has to write, in a yellow box so none are missed.
+\newcommand{\fillin}[1]{\par\noindent\colorbox{yellow!40}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\textbf{To fill in:} #1}}\par}
+
+% Caption text in italics for every figure and table; the "Figure 1:" label stays upright.
+\usepackage{caption}
+\captionsetup{textfont=it}
+
 % Code blocks: fall back to the math font for symbols the monospace font
 % lacks (Greek letters, arrows), so they are not dropped from source listings.
 \directlua{luaotfload.add_fallback("monofallback", {"latinmodern-math.otf:mode=node;"})}
 \setmonofont{Latin Modern Mono}[BoldFont={lmmonolt10-bold.otf}, RawFeature={fallback=monofallback}]
+\usepackage{needspace}
