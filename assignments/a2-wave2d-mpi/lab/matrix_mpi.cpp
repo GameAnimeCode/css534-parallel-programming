@@ -110,8 +110,8 @@ int main(int argc, char *argv[])
     MPI_Recv(b, size * size, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
   }
 
-  multiplication(a, b, c, stripe,
-                 size); // all ranks should compute multiplication
+  // all ranks should compute multiplication
+  multiplication(a, b, c, stripe, size);
 
   // master receives each partition of c[] from a different slave
   if (my_rank == 0)
