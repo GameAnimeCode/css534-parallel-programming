@@ -13,6 +13,57 @@ double dd = 2.0; // change in system
 
 using namespace std;
 
+// Find the first and last row of a rank's stripe.
+// First ranks get extra rows.
+void find_stripe(int rank, int size, int mpi_size, int &begin, int &end)
+{
+  int stripe = size / mpi_size;
+  int remainder = size % mpi_size;
+
+  begin = rank * stripe + (rank < remainder ? rank : remainder);
+  end = begin + stripe - (rank < remainder ? 0 : 1);
+}
+
+// Compute one row for t >= 2.
+// Zt_i,j = 2.0 * Zt-1_i,j - Zt-2_i,j + c^2 * (dt/dd)^2 * (Zt-1_i+1,j +
+// Zt-1_i-1,j + Zt-1_i,j+1 + Zt-1_i,j-1 - 4.0 * Zt-1_i,j)
+void compute_row(double *curr, const double *prev, const double *prev2,
+                 int size, double constant)
+{
+  const double *prev_up = prev + size;
+  const double *prev_down = prev - size;
+
+  for (int j = 1; j < size - 1; j++)
+  {
+    curr[j] = 2.0 * prev[j] - prev2[j] +
+              constant * (prev_up[j] + prev_down[j] + prev[j + 1] +
+                          prev[j - 1] - 4.0 * prev[j]);
+  }
+}
+
+// Async send and receive, ghost boundary rows.
+void async_send_recv(double *send_row, double *ghost_row, int neighbor,
+                     int size, MPI_Request *requests)
+{
+  MPI_Irecv(ghost_row, size, MPI_DOUBLE, neighbor, 0, MPI_COMM_WORLD,
+            &requests[0]);
+  MPI_Isend(send_row, size, MPI_DOUBLE, neighbor, 0, MPI_COMM_WORLD,
+            &requests[1]);
+}
+
+// Print one frame in the format Wout reads.
+void print_frame(int t, const double *grid, int size)
+{
+  cout << t << endl;
+  for (int j = 0; j < size; j++)
+  {
+    for (int i = 0; i < size; i++)
+      cout << grid[i * size + j] << " ";
+    cout << endl;
+  }
+  cout << endl;
+}
+
 int main(int argc, char *argv[])
 {
   // verify arguments
@@ -39,7 +90,7 @@ int main(int argc, char *argv[])
   // Set the OpenMP thread count for this rank
   omp_set_num_threads(threads);
 
-  // Init MPI
+  // Start MPI
   int my_rank = 0;
   int mpi_size = 1;
 
@@ -47,25 +98,28 @@ int main(int argc, char *argv[])
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
 
-  // Calculate stipe size and determine stripe start and end
-  int stripe = size / mpi_size;
-  int remainder = size % mpi_size;
+  // Rows each rank sends to rank 0 for printing
+  int counts[mpi_size];
+  int displacements[mpi_size];
+
+  for (int rank = 0; rank < mpi_size; rank++)
+  {
+    int rank_begin = 0;
+    int rank_end = 0;
+    find_stripe(rank, size, mpi_size, rank_begin, rank_end);
+
+    counts[rank] = (rank_end - rank_begin + 1) * size;
+    displacements[rank] = rank_begin * size;
+  }
+
+  // Find this rank's stripe
   int stripe_begin = 0;
   int stripe_end = 0;
+  find_stripe(my_rank, size, mpi_size, stripe_begin, stripe_end);
+  cerr << "rank[" << my_rank << "]'s range = " << stripe_begin << " ~ "
+       << stripe_end << endl;
 
-  if (my_rank < remainder)
-  {
-    stripe_begin = my_rank * (stripe + 1);
-    // stripe_begin + (stripe + 1) - 1 = stripe_begin + stripe
-    stripe_end = stripe_begin + stripe;
-  }
-  else
-  {
-    stripe_begin = my_rank * stripe + remainder;
-    stripe_end = stripe_begin + stripe - 1;
-  }
-
-  // Shift stipe begin and end for edges
+  // The i = 0 and i = size - 1 edges stay at 0, so skip them
   if (stripe_begin == 0)
   {
     stripe_begin = 1;
@@ -73,25 +127,6 @@ int main(int argc, char *argv[])
   if (stripe_end == size - 1)
   {
     stripe_end -= 1;
-  }
-
-  // Rank 0 gather setup
-  int counts[mpi_size];
-  int displacements[mpi_size];
-
-  for (int i = 0; i < mpi_size; i++)
-  {
-    int rank_begin = i * stripe + (i < remainder ? i : remainder);
-    int rank_end = rank_begin + stripe + (i < remainder ? 1 : 0);
-
-    counts[i] = (rank_end - rank_begin) * size;
-    displacements[i] = rank_begin * size;
-
-    if (i == my_rank)
-    {
-      cerr << "rank[" << i << "]'s range = " << rank_begin << " ~ "
-           << rank_end - 1 << endl;
-    }
   }
 
   // create a simulation space
@@ -146,8 +181,6 @@ int main(int argc, char *argv[])
   }
 
   // simulate wave diffusion from time = 2
-  // Zt_i,j = 2.0 * Zt-1_i,j - Zt-2_i,j + c^2 * (dt/dd)^2 * (Zt-1_i+1,j +
-  // Zt-1_i-1,j + Zt-1_i,j+1 + Zt-1_i,j-1 - 4.0 * Zt-1_i,j)
   const double constant_mp_t2 = pow(c, 2) * pow((dt / dd), 2);
 
   for (int t = 2; t < max_time; t++)
@@ -156,83 +189,51 @@ int main(int argc, char *argv[])
     const int t_prev2 = (t + 1) % 3;
     double (*z_curr)[size] = z[t % 3];
 
+    // Print before computing, so frame t holds time t - 3 as in out1.txt
     if (interval != 0 && (t % interval == 0 || t == max_time - 1))
     {
-      // Grab all the data
-      void *buffer_start = my_rank == 0 ? MPI_IN_PLACE : z_curr[stripe_begin];
-      MPI_Gatherv(buffer_start, counts[my_rank], MPI_DOUBLE, // send
+      void *send_start = my_rank == 0 ? MPI_IN_PLACE : z_curr[stripe_begin];
+      MPI_Gatherv(send_start, counts[my_rank], MPI_DOUBLE,   // send
                   z_curr, counts, displacements, MPI_DOUBLE, // recv
                   0, MPI_COMM_WORLD);
 
       if (my_rank == 0)
       {
-        cout << t << endl;
-        for (int j = 0; j < size; j++)
-        {
-          for (int i = 0; i < size; i++)
-            cout << z_curr[i][j] << " ";
-          cout << endl;
-        }
-        cout << endl;
+        print_frame(t, z_curr[0], size);
       }
     }
 
-    // Calculate ghost boundary rows first, to send async
-    for (int side = 0; side < 2; side++)
-    {
-      int i = side == 0 ? stripe_begin : stripe_end;
-      double *curr = z_curr[i];
-      const double *prev = z[t_prev][i];
-      const double *prev_up = z[t_prev][i + 1];
-      const double *prev_down = z[t_prev][i - 1];
-      const double *prev2 = z[t_prev2][i];
+    // Compute the boundary rows first so they can be sent right away
+    compute_row(z_curr[stripe_begin], z[t_prev][stripe_begin],
+                z[t_prev2][stripe_begin], size, constant_mp_t2);
+    compute_row(z_curr[stripe_end], z[t_prev][stripe_end],
+                z[t_prev2][stripe_end], size, constant_mp_t2);
 
-      for (int j = 1; j < size - 1; j++)
-      {
-        curr[j] = 2.0 * prev[j] - prev2[j] +
-                  constant_mp_t2 * (prev_up[j] + prev_down[j] + prev[j + 1] +
-                                    prev[j - 1] - 4.0 * prev[j]);
-      }
-    }
-
-    // Swap ghost stripes async
+    // Swap boundary rows with both neighbors
     MPI_Request requests[4];
     int n_reqs = 0;
 
     if (my_rank > 0)
     {
-      MPI_Irecv(z_curr[stripe_begin - 1], size, MPI_DOUBLE, my_rank - 1, 0,
-                MPI_COMM_WORLD, &requests[n_reqs++]);
-      MPI_Isend(z_curr[stripe_begin], size, MPI_DOUBLE, my_rank - 1, 0,
-                MPI_COMM_WORLD, &requests[n_reqs++]);
+      async_send_recv(z_curr[stripe_begin], z_curr[stripe_begin - 1],
+                      my_rank - 1, size, &requests[n_reqs]);
+      n_reqs += 2;
     }
     if (my_rank < mpi_size - 1)
     {
-      MPI_Irecv(z_curr[stripe_end + 1], size, MPI_DOUBLE, my_rank + 1, 0,
-                MPI_COMM_WORLD, &requests[n_reqs++]);
-      MPI_Isend(z_curr[stripe_end], size, MPI_DOUBLE, my_rank + 1, 0,
-                MPI_COMM_WORLD, &requests[n_reqs++]);
+      async_send_recv(z_curr[stripe_end], z_curr[stripe_end + 1], my_rank + 1,
+                      size, &requests[n_reqs]);
+      n_reqs += 2;
     }
 
-    // Compute interior rows
+    // Compute the interior rows while the messages travel
 #pragma omp parallel for
     for (int i = stripe_begin + 1; i < stripe_end; i++)
     {
-      double *curr = z_curr[i];
-      const double *prev = z[t_prev][i];
-      const double *prev_up = z[t_prev][i + 1];
-      const double *prev_down = z[t_prev][i - 1];
-      const double *prev2 = z[t_prev2][i];
-
-      for (int j = 1; j < size - 1; j++)
-      {
-        curr[j] = 2.0 * prev[j] - prev2[j] +
-                  constant_mp_t2 * (prev_up[j] + prev_down[j] + prev[j + 1] +
-                                    prev[j - 1] - 4.0 * prev[j]);
-      }
+      compute_row(z_curr[i], z[t_prev][i], z[t_prev2][i], size, constant_mp_t2);
     }
 
-    // Block until ghost boundary rows are sent and received
+    // Wait for the ghost rows before the next step reads them
     MPI_Waitall(n_reqs, requests, MPI_STATUSES_IGNORE);
   } // end of simulation
 
@@ -242,7 +243,7 @@ int main(int argc, char *argv[])
     cerr << "Elapsed time = " << time.lap() << endl;
   }
 
-  // Flush MPI
+  // Shut down MPI
   MPI_Finalize();
   return 0;
 }
