@@ -32,7 +32,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-25-openjdk
 # Install and setup Quarto to render the markdown writeups to PDF.
 ARG QUARTO_VERSION=1.10.19
 USER root
-RUN dnf install -y librsvg2-tools perl-File-Find && \
+RUN dnf install -y librsvg2-tools poppler-utils perl-File-Find && \
   curl -fsSL -o /tmp/quarto.rpm \
   "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-$(uname -m).rpm" && \
   dnf install -y /tmp/quarto.rpm && \
